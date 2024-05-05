@@ -1,8 +1,5 @@
 include:
-  - ./pyload/docker-compose.yml
-  - ./qbittorrent/docker-compose.yml
-  - ./monitoring/docker-compose.yml
-  - ./monitoring/docker-compose.yml
-  - ./homepage/docker-compose.yml
-  - ./mysql/docker-compose.yml
-  - ./speedtest-tracker/docker-compose.yml
+  - pyload/docker-compose.yml
+  - qbittorrent/docker-compose.yml
+  - mysql/docker-compose.yml
+  - speedtest-tracker/docker-compose.yml
