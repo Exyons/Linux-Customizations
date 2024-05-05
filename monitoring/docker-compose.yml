@@ -1,47 +1,52 @@
 services:
-  prometheus:
-    image: prom/prometheus:v2.51.1
-    container_name: prometheus
-    restart: always
-    ports:
-      - '9090:9090'
-    volumes:
-      - type: bind
-        source: ./prometheus-data/prometheus.yml
-        target: /etc/prometheus/prometheus.yml
-      - type: volume
-        source: prometheus-data
-        target: /prometheus
-    deploy:
-      mode: global
-      # mode: replicated
-      # replicas: 1
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 5
-        window: 120s
   grafana:
     image: grafana/grafana:latest
-    container_name: grafana
-    restart: always
-    user: "0"
-    ports:
-     - '3000:3000'
+    user: 0:0
     volumes:
-      - type: bind
-        source: ./grafana-data
-        target: /var/lib/grafana
+      - ./grafana-data:/var/lib/grafana
     depends_on:
       - prometheus
+    networks:
+      - traefik
     deploy:
       mode: global
-      # mode: replicated
-      # replicas: 1
       restart_policy:
         condition: on-failure
         delay: 5s
         max_attempts: 5
         window: 120s
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.grafana-router.rule = ( `grafana.machoboiverse.cloud` )"
+        - "traefik.http.routers.grafana-router.entrpoints=websecure"
+        - "traefik.http.routers.grafana-router.tls=true"
+        - "traefik.http.routers.grafana-router.tls.certresolver=production"
+        - "traefik.http.services.grafana-service.loadbalancer.server.port=3000"
+  prometheus:
+    image: prom/prometheus:v2.51.1
+    volumes:
+      - ./prometheus-data/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus-data:/prometheus
+    networks:
+      - traefik
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 120s
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.prometheus-router.rule = ( `prometheus.machoboiverse.cloud` )"
+        - "traefik.http.routers.prometheus-router.entrpoints=websecure"
+        - "traefik.http.routers.prometheus-router.tls=true"
+        - "traefik.http.routers.prometheus-router.tls.certresolver=production"
+        - "traefik.http.services.prometheus-service.loadbalancer.server.port=9090"
+
 volumes:
   prometheus-data:
+
+networks:
+  traefik:
+    external: true

@@ -1,10 +1,7 @@
 ---
 services:
   linkding:
-    container_name: linkding
     image: sissbruecker/linkding:1.30.0-plus-alpine
-    ports:
-      - 9090:9090
     volumes:
       - ./data:/etc/linkding/data
     env_file:
@@ -17,6 +14,23 @@ services:
         hard: 40000
     depends_on:
       - postgres
+    networks:
+      - traefik
+      - db-network
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 120s
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.linkding-router.rule=( `linkding.machoboiverse.cloud` )"
+        - "traefik.http.routers.linkding-router.entrpoints=websecure"
+        - "traefik.http.routers.linkding-router.tls=true"
+        - "traefik.http.routers.linkding-router.tls.certresolver=production"
+        - "traefik.http.service.linkding-service.loadbalancer.server.port=9090"
   postgres:
     container_name: postgres
     image: postgres:16.2
@@ -26,7 +40,18 @@ services:
       - POSTGRES_PASSWORD=password
       - POSTGRES_USER=linkding
       - POSTGRES_DB=linkding
-    restart: unless-stopped
+    networks:
+      - db-network
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 120s
 
 volumes:
   postgres-data:
+
+networks:
+  db_network:

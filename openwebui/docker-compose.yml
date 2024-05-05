@@ -1,17 +1,31 @@
 ---
 services:
   open-webui:
-    container_name: open-webui
     image: ghcr.io/open-webui/open-webui:main
-    ports:
-      - "3000:8080"
-    environment:
-      - OLLAMA_BASE_URL=http://10.10.10.253:11434
+    # environment:
+    #   - OLLAMA_BASE_URL=http://10.10.10.253:11434
     volumes:
       - open-webui:/app/backend/data
-    restart: always
+    networks:
+      - traefik
+    deploy:
+      mode: gloabal
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 120s
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.open-webui-router.rule=( `openwebui.machoboiverse.cloud` )"
+        - "traefik.http.routers.open-webui-router.entrypoints=websecure"
+        - "traefik.http.routers.open-webui-router.tls=true"
+        - "traefik.http.routers.open-webui-router.tls.certresolver=production"
+        - "traefik.http.services.open-webui-service.loadbalancer.server.port=8080"
 
 volumes:
   open-webui:
 
-    
+networks:
+  traefik:
+    external: true

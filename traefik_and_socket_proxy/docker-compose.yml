@@ -1,44 +1,44 @@
 ---
 services:
   traefik:
-    container_name: traefik
     image: traefik:v3.0.0
     volumes:
-      - type: bind
-        source: ./traefik/
-        target: /etc/traefik/
-        read_only: true
-      - type: bind
-        source: ./traefik/certs
-        target: /etc/traefik/certs
-      - type: bind
-        source: ./traefik/conf
-        target: /etc/traefik/conf
+      - ./traefik/:/etc/traefik/:ro
+      - ./traefik/conf:/etc/traefik/conf:ro
+      - ./traefik/certs:/etc/traefik/certs
     env_file: .env.traefik
     ports:
-      - "100.69.69.5:8080:8080"
-      - "80:80"
-      - "443:443"
+      - "100.69.69.3:8080:8080"
+      - "100.69.69.3:80:80"
+      - "100.69.69.3:443:443"
     networks:
       - traefik
       - socket_proxy
-    restart: always
     depends_on:
       - socket_proxy
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 120s
 
   socket_proxy:
-    container_name: socket_proxy
     image: ghcr.io/tecnativa/docker-socket-proxy:0.1.2
     volumes:
-      - type: bind
-        source: /var/run/docker.sock
-        target: /var/run/docker.sock
-        read_only: true
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     privileged: true
-    restart: always
     networks:
       - socket_proxy
     env_file: .env.socket_proxy
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 120s
 
 networks:
   socket_proxy:
