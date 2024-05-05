@@ -1,6 +1,6 @@
 *.env*
 linkding/data/*
 monitoring/grafana-data/*
-# !monitoring/grafana-data/
+!monitoring/grafana-data/
 vaultwarden/waf/*
-# !vaultwarden/waf/
+!vaultwarden/waf/
