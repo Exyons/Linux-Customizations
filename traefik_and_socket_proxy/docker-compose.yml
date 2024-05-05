@@ -1,0 +1,47 @@
+---
+services:
+  traefik:
+    container_name: traefik
+    image: traefik:v3.0.0
+    volumes:
+      - type: bind
+        source: ./traefik/
+        target: /etc/traefik/
+        read_only: true
+      - type: bind
+        source: ./traefik/certs
+        target: /etc/traefik/certs
+      - type: bind
+        source: ./traefik/conf
+        target: /etc/traefik/conf
+    env_file: .env.traefik
+    ports:
+      - "100.69.69.5:8080:8080"
+      - "80:80"
+      - "443:443"
+    networks:
+      - traefik
+      - socket_proxy
+    restart: always
+    depends_on:
+      - socket_proxy
+
+  socket_proxy:
+    container_name: socket_proxy
+    image: ghcr.io/tecnativa/docker-socket-proxy:0.1.2
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        read_only: true
+    privileged: true
+    restart: always
+    networks:
+      - socket_proxy
+    env_file: .env.socket_proxy
+
+networks:
+  socket_proxy:
+    driver: bridge
+  traefik:
+    external: true

@@ -1,0 +1,12 @@
+services:
+  homer:
+    image: b4bz/homer:latest
+    volumes:
+      - ./assets:/www/assets
+    environment:
+      - INIT_ASSETS=1
+    restart: always
+    user: 0:0
+    ports:
+      - "80:8080"
+

@@ -1,0 +1,32 @@
+---
+services:
+  linkding:
+    container_name: linkding
+    image: sissbruecker/linkding:1.30.0-plus-alpine
+    ports:
+      - 9090:9090
+    volumes:
+      - ./data:/etc/linkding/data
+    env_file:
+      - .env
+    restart: unless-stopped
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
+    depends_on:
+      - postgres
+  postgres:
+    container_name: postgres
+    image: postgres:16.2
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=linkding
+      - POSTGRES_DB=linkding
+    restart: unless-stopped
+
+volumes:
+  postgres-data:

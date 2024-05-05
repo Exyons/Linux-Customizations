@@ -1,0 +1,46 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/latest/configs/bookmarks
+
+- Developer:
+    - Github:
+        - abbr: GH
+          icon: si-github-#ffffff
+          href: https://github.com/
+    - Colab:
+      - abbr: CAB
+        icon: si-googlecolab-#F9AB00
+        href: https://colab.research.google.com/
+
+- Chat Bots:
+    - ChatGPT:
+      - abbr: GPT
+        href: https://chat.openai.com/
+        icon: si-openai-#ffffff
+    - Phind:
+      - abbr: PHD
+        href: https://phind.com/
+        icon: https://www.phind.com/images/favicon.png
+    - Blackbox AI:
+      - abbr: BB
+        href: https://blackbox.ai/
+        icon: https://www.blackbox.ai/favicon-16x16.png
+    - Gemini:
+      - abbr: GEM
+        href: https://gemini.google.com/app
+        icon: https://www.gstatic.com/lamda/images/gemini_favicon_f069958c85030456e93de685481c559f160ea06b.png
+    - Claude Chat:
+      - abbr: CLD
+        href: https://claude.ai/
+        icon: https://www.anthropic.com/favicon.ico
+        
+- Social:
+    - Reddit:
+        - abbr: RE
+          href: https://reddit.com/
+
+- Entertainment:
+    - YouTube:
+        - abbr: YT
+          href: https://youtube.com/
+          icon: youtube.png

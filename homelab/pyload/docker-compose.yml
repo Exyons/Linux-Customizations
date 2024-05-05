@@ -1,0 +1,38 @@
+services:
+  pyload-ng:
+    image: lscr.io/linuxserver/pyload-ng:latest
+    container_name: pyload-ng
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Asia/Kolkata
+    volumes:
+      - ./config:/config
+      # - /mnt/nas/pyload/downloads:/downloads
+      - ./downloads:/downloads
+    networks:
+      - traefik
+    # ports:
+    # - 8000:8000 # Webinterface
+    # - 9666:9666 # Click 'N' Load
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.pyload.rule=Host( `pyload.machoboiverse.cloud` )
+      - traefik.http.routers.pyload.entrypoints=websecure
+      - traefik.http.services.pyload-service.loadbalancer.server.port=8000
+      - traefik.http.routers.pyload.tls=true
+      - traefik.http.routers.pyload.tls.certresolver=production
+    restart: always
+    deploy:
+      mode: global
+      # mode: replicated
+      # replicas: 1
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 120s
+
+networks:
+  traefik:
+    external: true

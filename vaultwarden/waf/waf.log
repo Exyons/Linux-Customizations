@@ -1,0 +1,359 @@
+[Sat May 04 19:01:09.661277 2024] [mpm_event:notice] [pid 1:tid 139864318338944] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:01:14.513712 2024] [ssl:error] [pid 1:tid 140590990751616] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 63A8D7854DE5D9D2D3BEC3C6BCBDF475AEFA696E / notbefore: May  4 19:01:14 2024 GMT / notafter: May  4 19:01:14 2025 GMT]
+[Sat May 04 19:01:14.513875 2024] [ssl:error] [pid 1:tid 140590990751616] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:01:14.514026 2024] [security2:notice] [pid 1:tid 140590990751616] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:01:14.514041 2024] [security2:notice] [pid 1:tid 140590990751616] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:01:14.514054 2024] [security2:notice] [pid 1:tid 140590990751616] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:01:14.514065 2024] [security2:notice] [pid 1:tid 140590990751616] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:01:14.514074 2024] [security2:notice] [pid 1:tid 140590990751616] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:01:14.514084 2024] [security2:notice] [pid 1:tid 140590990751616] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:01:14.514093 2024] [security2:notice] [pid 1:tid 140590990751616] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:01:14.514133 2024] [security2:notice] [pid 1:tid 140590990751616] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:01:14.822055 2024] [ssl:error] [pid 1:tid 140590990751616] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 63A8D7854DE5D9D2D3BEC3C6BCBDF475AEFA696E / notbefore: May  4 19:01:14 2024 GMT / notafter: May  4 19:01:14 2025 GMT]
+[Sat May 04 19:01:14.822180 2024] [ssl:error] [pid 1:tid 140590990751616] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:01:14.861034 2024] [mpm_event:notice] [pid 1:tid 140590990751616] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:01:14.861193 2024] [core:notice] [pid 1:tid 140590990751616] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:01:23.600641 2024] [ssl:error] [pid 1:tid 140635446491008] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 75CB74975488FB75926F0BE74D3FF7914524FC08 / notbefore: May  4 19:01:23 2024 GMT / notafter: May  4 19:01:23 2025 GMT]
+[Sat May 04 19:01:23.601439 2024] [ssl:error] [pid 1:tid 140635446491008] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:01:23.601747 2024] [security2:notice] [pid 1:tid 140635446491008] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:01:23.601888 2024] [security2:notice] [pid 1:tid 140635446491008] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:01:23.602046 2024] [security2:notice] [pid 1:tid 140635446491008] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:01:23.602222 2024] [security2:notice] [pid 1:tid 140635446491008] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:01:23.602371 2024] [security2:notice] [pid 1:tid 140635446491008] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:01:23.602517 2024] [security2:notice] [pid 1:tid 140635446491008] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:01:23.602703 2024] [security2:notice] [pid 1:tid 140635446491008] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:01:23.602847 2024] [security2:notice] [pid 1:tid 140635446491008] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:01:23.779911 2024] [ssl:error] [pid 1:tid 140635446491008] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 75CB74975488FB75926F0BE74D3FF7914524FC08 / notbefore: May  4 19:01:23 2024 GMT / notafter: May  4 19:01:23 2025 GMT]
+[Sat May 04 19:01:23.780237 2024] [ssl:error] [pid 1:tid 140635446491008] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:01:23.789488 2024] [mpm_event:notice] [pid 1:tid 140635446491008] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:01:23.789892 2024] [core:notice] [pid 1:tid 140635446491008] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:02:33.724013 2024] [mpm_event:notice] [pid 1:tid 140635446491008] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:02:40.762465 2024] [ssl:error] [pid 1:tid 140391285417856] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 2728474152C76FAA42777EEBE9D08C654AF582A5 / notbefore: May  4 19:02:40 2024 GMT / notafter: May  4 19:02:40 2025 GMT]
+[Sat May 04 19:02:40.762632 2024] [ssl:error] [pid 1:tid 140391285417856] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:02:40.762752 2024] [security2:notice] [pid 1:tid 140391285417856] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:02:40.762766 2024] [security2:notice] [pid 1:tid 140391285417856] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:02:40.762786 2024] [security2:notice] [pid 1:tid 140391285417856] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:02:40.762797 2024] [security2:notice] [pid 1:tid 140391285417856] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:02:40.762807 2024] [security2:notice] [pid 1:tid 140391285417856] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:02:40.762816 2024] [security2:notice] [pid 1:tid 140391285417856] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:02:40.762825 2024] [security2:notice] [pid 1:tid 140391285417856] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:02:40.762835 2024] [security2:notice] [pid 1:tid 140391285417856] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:02:40.923276 2024] [ssl:error] [pid 1:tid 140391285417856] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 2728474152C76FAA42777EEBE9D08C654AF582A5 / notbefore: May  4 19:02:40 2024 GMT / notafter: May  4 19:02:40 2025 GMT]
+[Sat May 04 19:02:40.923356 2024] [ssl:error] [pid 1:tid 140391285417856] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:02:40.933027 2024] [mpm_event:notice] [pid 1:tid 140391285417856] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:02:40.933312 2024] [core:notice] [pid 1:tid 140391285417856] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:04:07.720931 2024] [mpm_event:notice] [pid 1:tid 140391285417856] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:04:16.000181 2024] [ssl:error] [pid 1:tid 140084948920192] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 24842B22A6C273692CED84074A8CDCCF51864806 / notbefore: May  4 19:04:15 2024 GMT / notafter: May  4 19:04:15 2025 GMT]
+[Sat May 04 19:04:16.000796 2024] [ssl:error] [pid 1:tid 140084948920192] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:04:16.001084 2024] [security2:notice] [pid 1:tid 140084948920192] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:04:16.001249 2024] [security2:notice] [pid 1:tid 140084948920192] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:04:16.001399 2024] [security2:notice] [pid 1:tid 140084948920192] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:04:16.001530 2024] [security2:notice] [pid 1:tid 140084948920192] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:04:16.001672 2024] [security2:notice] [pid 1:tid 140084948920192] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:04:16.001802 2024] [security2:notice] [pid 1:tid 140084948920192] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:04:16.001931 2024] [security2:notice] [pid 1:tid 140084948920192] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:04:16.002059 2024] [security2:notice] [pid 1:tid 140084948920192] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:04:16.181681 2024] [ssl:error] [pid 1:tid 140084948920192] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 24842B22A6C273692CED84074A8CDCCF51864806 / notbefore: May  4 19:04:15 2024 GMT / notafter: May  4 19:04:15 2025 GMT]
+[Sat May 04 19:04:16.181969 2024] [ssl:error] [pid 1:tid 140084948920192] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:04:16.190524 2024] [mpm_event:notice] [pid 1:tid 140084948920192] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:04:16.190938 2024] [core:notice] [pid 1:tid 140084948920192] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:05:58.549484 2024] [mpm_event:notice] [pid 1:tid 140084948920192] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:06:07.140361 2024] [ssl:error] [pid 1:tid 140383662548864] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 2D13B1377FDACB8A188841D7EAB917B5B6E72D31 / notbefore: May  4 19:06:06 2024 GMT / notafter: May  4 19:06:06 2025 GMT]
+[Sat May 04 19:06:07.140524 2024] [ssl:error] [pid 1:tid 140383662548864] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:06:07.140666 2024] [security2:notice] [pid 1:tid 140383662548864] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:06:07.140681 2024] [security2:notice] [pid 1:tid 140383662548864] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:06:07.140696 2024] [security2:notice] [pid 1:tid 140383662548864] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:06:07.140706 2024] [security2:notice] [pid 1:tid 140383662548864] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:06:07.140716 2024] [security2:notice] [pid 1:tid 140383662548864] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:06:07.140746 2024] [security2:notice] [pid 1:tid 140383662548864] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:06:07.140756 2024] [security2:notice] [pid 1:tid 140383662548864] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:06:07.140766 2024] [security2:notice] [pid 1:tid 140383662548864] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:06:07.301151 2024] [ssl:error] [pid 1:tid 140383662548864] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 2D13B1377FDACB8A188841D7EAB917B5B6E72D31 / notbefore: May  4 19:06:06 2024 GMT / notafter: May  4 19:06:06 2025 GMT]
+[Sat May 04 19:06:07.301235 2024] [ssl:error] [pid 1:tid 140383662548864] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:06:07.310602 2024] [mpm_event:notice] [pid 1:tid 140383662548864] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:06:07.310748 2024] [core:notice] [pid 1:tid 140383662548864] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:08:02.697549 2024] [mpm_event:notice] [pid 1:tid 140383662548864] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:08:05.482232 2024] [ssl:error] [pid 1:tid 140485738903424] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 60273605337729D87A96683B2A6485E082CA03AA / notbefore: May  4 19:08:05 2024 GMT / notafter: May  4 19:08:05 2025 GMT]
+[Sat May 04 19:08:05.482398 2024] [ssl:error] [pid 1:tid 140485738903424] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:08:05.482548 2024] [security2:notice] [pid 1:tid 140485738903424] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:08:05.482563 2024] [security2:notice] [pid 1:tid 140485738903424] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:08:05.482576 2024] [security2:notice] [pid 1:tid 140485738903424] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:08:05.482587 2024] [security2:notice] [pid 1:tid 140485738903424] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:08:05.482596 2024] [security2:notice] [pid 1:tid 140485738903424] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:08:05.482606 2024] [security2:notice] [pid 1:tid 140485738903424] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:08:05.482615 2024] [security2:notice] [pid 1:tid 140485738903424] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:08:05.482625 2024] [security2:notice] [pid 1:tid 140485738903424] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:08:05.650839 2024] [ssl:error] [pid 1:tid 140485738903424] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 60273605337729D87A96683B2A6485E082CA03AA / notbefore: May  4 19:08:05 2024 GMT / notafter: May  4 19:08:05 2025 GMT]
+[Sat May 04 19:08:05.650925 2024] [ssl:error] [pid 1:tid 140485738903424] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:08:05.659731 2024] [mpm_event:notice] [pid 1:tid 140485738903424] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:08:05.659888 2024] [core:notice] [pid 1:tid 140485738903424] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:23:55.063175 2024] [mpm_event:notice] [pid 1:tid 140485738903424] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:23:57.477074 2024] [ssl:error] [pid 1:tid 140569328416640] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 01EE800723E50D8AA92FE793AA53484FD78D5E00 / notbefore: May  4 19:23:57 2024 GMT / notafter: May  4 19:23:57 2025 GMT]
+[Sat May 04 19:23:57.477271 2024] [ssl:error] [pid 1:tid 140569328416640] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:23:57.477395 2024] [security2:notice] [pid 1:tid 140569328416640] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:23:57.477409 2024] [security2:notice] [pid 1:tid 140569328416640] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:23:57.477423 2024] [security2:notice] [pid 1:tid 140569328416640] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:23:57.477433 2024] [security2:notice] [pid 1:tid 140569328416640] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:23:57.477442 2024] [security2:notice] [pid 1:tid 140569328416640] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:23:57.477452 2024] [security2:notice] [pid 1:tid 140569328416640] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:23:57.477461 2024] [security2:notice] [pid 1:tid 140569328416640] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:23:57.477471 2024] [security2:notice] [pid 1:tid 140569328416640] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:23:57.638618 2024] [ssl:error] [pid 1:tid 140569328416640] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 01EE800723E50D8AA92FE793AA53484FD78D5E00 / notbefore: May  4 19:23:57 2024 GMT / notafter: May  4 19:23:57 2025 GMT]
+[Sat May 04 19:23:57.638703 2024] [ssl:error] [pid 1:tid 140569328416640] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:23:57.651397 2024] [mpm_event:notice] [pid 1:tid 140569328416640] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:23:57.651783 2024] [core:notice] [pid 1:tid 140569328416640] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:24:05.252388 2024] [mpm_event:notice] [pid 1:tid 140569328416640] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:24:14.555901 2024] [ssl:error] [pid 1:tid 140388477335424] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 4C4644ED47BE4860FC1B668C55967540204E4C6F / notbefore: May  4 19:24:14 2024 GMT / notafter: May  4 19:24:14 2025 GMT]
+[Sat May 04 19:24:14.556898 2024] [ssl:error] [pid 1:tid 140388477335424] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:24:14.557282 2024] [security2:notice] [pid 1:tid 140388477335424] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:24:14.557421 2024] [security2:notice] [pid 1:tid 140388477335424] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:24:14.557557 2024] [security2:notice] [pid 1:tid 140388477335424] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:24:14.557686 2024] [security2:notice] [pid 1:tid 140388477335424] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:24:14.557815 2024] [security2:notice] [pid 1:tid 140388477335424] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:24:14.557964 2024] [security2:notice] [pid 1:tid 140388477335424] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:24:14.558092 2024] [security2:notice] [pid 1:tid 140388477335424] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:24:14.558260 2024] [security2:notice] [pid 1:tid 140388477335424] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:24:14.786693 2024] [ssl:error] [pid 1:tid 140388477335424] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 4C4644ED47BE4860FC1B668C55967540204E4C6F / notbefore: May  4 19:24:14 2024 GMT / notafter: May  4 19:24:14 2025 GMT]
+[Sat May 04 19:24:14.787011 2024] [ssl:error] [pid 1:tid 140388477335424] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:24:14.800707 2024] [mpm_event:notice] [pid 1:tid 140388477335424] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:24:14.800846 2024] [core:notice] [pid 1:tid 140388477335424] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:26:07.067407 2024] [mpm_event:notice] [pid 1:tid 140388477335424] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:26:13.751483 2024] [ssl:error] [pid 1:tid 140061032736640] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 637C7B63390B6F3B666BA73A55B09ABA5C6D2BA1 / notbefore: May  4 19:26:13 2024 GMT / notafter: May  4 19:26:13 2025 GMT]
+[Sat May 04 19:26:13.751640 2024] [ssl:error] [pid 1:tid 140061032736640] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:26:13.751762 2024] [security2:notice] [pid 1:tid 140061032736640] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:26:13.751776 2024] [security2:notice] [pid 1:tid 140061032736640] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:26:13.751796 2024] [security2:notice] [pid 1:tid 140061032736640] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:26:13.751806 2024] [security2:notice] [pid 1:tid 140061032736640] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:26:13.751816 2024] [security2:notice] [pid 1:tid 140061032736640] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:26:13.751825 2024] [security2:notice] [pid 1:tid 140061032736640] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:26:13.751835 2024] [security2:notice] [pid 1:tid 140061032736640] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:26:13.751844 2024] [security2:notice] [pid 1:tid 140061032736640] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:26:13.925873 2024] [ssl:error] [pid 1:tid 140061032736640] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 637C7B63390B6F3B666BA73A55B09ABA5C6D2BA1 / notbefore: May  4 19:26:13 2024 GMT / notafter: May  4 19:26:13 2025 GMT]
+[Sat May 04 19:26:13.925976 2024] [ssl:error] [pid 1:tid 140061032736640] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:26:13.941996 2024] [mpm_event:notice] [pid 1:tid 140061032736640] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:26:13.942427 2024] [core:notice] [pid 1:tid 140061032736640] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:29:44.932396 2024] [mpm_event:notice] [pid 1:tid 140061032736640] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:29:47.555906 2024] [ssl:error] [pid 1:tid 139793931118464] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 4C38629A6DC2660E73FC2DE324FEBFCE92C6DC78 / notbefore: May  4 19:29:47 2024 GMT / notafter: May  4 19:29:47 2025 GMT]
+[Sat May 04 19:29:47.556062 2024] [ssl:error] [pid 1:tid 139793931118464] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:29:47.556214 2024] [security2:notice] [pid 1:tid 139793931118464] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:29:47.556245 2024] [security2:notice] [pid 1:tid 139793931118464] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:29:47.556260 2024] [security2:notice] [pid 1:tid 139793931118464] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:29:47.556271 2024] [security2:notice] [pid 1:tid 139793931118464] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:29:47.556281 2024] [security2:notice] [pid 1:tid 139793931118464] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:29:47.556290 2024] [security2:notice] [pid 1:tid 139793931118464] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:29:47.556300 2024] [security2:notice] [pid 1:tid 139793931118464] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:29:47.556309 2024] [security2:notice] [pid 1:tid 139793931118464] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:29:47.723415 2024] [ssl:error] [pid 1:tid 139793931118464] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 4C38629A6DC2660E73FC2DE324FEBFCE92C6DC78 / notbefore: May  4 19:29:47 2024 GMT / notafter: May  4 19:29:47 2025 GMT]
+[Sat May 04 19:29:47.723501 2024] [ssl:error] [pid 1:tid 139793931118464] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:29:47.733975 2024] [mpm_event:notice] [pid 1:tid 139793931118464] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:29:47.734447 2024] [core:notice] [pid 1:tid 139793931118464] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:30:36.560527 2024] [mpm_event:notice] [pid 1:tid 139793931118464] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:30:39.217201 2024] [ssl:error] [pid 1:tid 140682144536448] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 580189DA9CCDA3F72208A865468079523B8E9FF8 / notbefore: May  4 19:30:38 2024 GMT / notafter: May  4 19:30:38 2025 GMT]
+[Sat May 04 19:30:39.217817 2024] [ssl:error] [pid 1:tid 140682144536448] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:30:39.218162 2024] [security2:notice] [pid 1:tid 140682144536448] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:30:39.218320 2024] [security2:notice] [pid 1:tid 140682144536448] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:30:39.218454 2024] [security2:notice] [pid 1:tid 140682144536448] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:30:39.218585 2024] [security2:notice] [pid 1:tid 140682144536448] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:30:39.218731 2024] [security2:notice] [pid 1:tid 140682144536448] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:30:39.218860 2024] [security2:notice] [pid 1:tid 140682144536448] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:30:39.218988 2024] [security2:notice] [pid 1:tid 140682144536448] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:30:39.219148 2024] [security2:notice] [pid 1:tid 140682144536448] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:30:39.395061 2024] [ssl:error] [pid 1:tid 140682144536448] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 580189DA9CCDA3F72208A865468079523B8E9FF8 / notbefore: May  4 19:30:38 2024 GMT / notafter: May  4 19:30:38 2025 GMT]
+[Sat May 04 19:30:39.395473 2024] [ssl:error] [pid 1:tid 140682144536448] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:30:39.410562 2024] [mpm_event:notice] [pid 1:tid 140682144536448] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:30:39.412301 2024] [core:notice] [pid 1:tid 140682144536448] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:32:42.940969 2024] [mpm_event:notice] [pid 1:tid 140682144536448] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:32:55.535403 2024] [ssl:error] [pid 1:tid 139966087382912] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 60A0B3853502201B500BFB062FF39531A38414C7 / notbefore: May  4 19:32:55 2024 GMT / notafter: May  4 19:32:55 2025 GMT]
+[Sat May 04 19:32:55.535559 2024] [ssl:error] [pid 1:tid 139966087382912] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:32:55.535682 2024] [security2:notice] [pid 1:tid 139966087382912] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:32:55.535696 2024] [security2:notice] [pid 1:tid 139966087382912] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:32:55.535710 2024] [security2:notice] [pid 1:tid 139966087382912] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:32:55.535720 2024] [security2:notice] [pid 1:tid 139966087382912] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:32:55.535730 2024] [security2:notice] [pid 1:tid 139966087382912] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:32:55.535739 2024] [security2:notice] [pid 1:tid 139966087382912] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:32:55.535748 2024] [security2:notice] [pid 1:tid 139966087382912] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:32:55.535757 2024] [security2:notice] [pid 1:tid 139966087382912] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:32:55.694751 2024] [ssl:error] [pid 1:tid 139966087382912] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 60A0B3853502201B500BFB062FF39531A38414C7 / notbefore: May  4 19:32:55 2024 GMT / notafter: May  4 19:32:55 2025 GMT]
+[Sat May 04 19:32:55.694834 2024] [ssl:error] [pid 1:tid 139966087382912] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:32:55.705424 2024] [mpm_event:notice] [pid 1:tid 139966087382912] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:32:55.705582 2024] [core:notice] [pid 1:tid 139966087382912] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:33:47.763824 2024] [mpm_event:notice] [pid 1:tid 139966087382912] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:33:50.667458 2024] [ssl:error] [pid 1:tid 140179550271360] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 22F0EBD8360D1314FAB3B13581FCE8A78CEE2627 / notbefore: May  4 19:33:50 2024 GMT / notafter: May  4 19:33:50 2025 GMT]
+[Sat May 04 19:33:50.667838 2024] [ssl:error] [pid 1:tid 140179550271360] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:33:50.668134 2024] [security2:notice] [pid 1:tid 140179550271360] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:33:50.668165 2024] [security2:notice] [pid 1:tid 140179550271360] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:33:50.668181 2024] [security2:notice] [pid 1:tid 140179550271360] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:33:50.668192 2024] [security2:notice] [pid 1:tid 140179550271360] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:33:50.668201 2024] [security2:notice] [pid 1:tid 140179550271360] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:33:50.668210 2024] [security2:notice] [pid 1:tid 140179550271360] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:33:50.668220 2024] [security2:notice] [pid 1:tid 140179550271360] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:33:50.668229 2024] [security2:notice] [pid 1:tid 140179550271360] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:33:50.831689 2024] [ssl:error] [pid 1:tid 140179550271360] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 22F0EBD8360D1314FAB3B13581FCE8A78CEE2627 / notbefore: May  4 19:33:50 2024 GMT / notafter: May  4 19:33:50 2025 GMT]
+[Sat May 04 19:33:50.831776 2024] [ssl:error] [pid 1:tid 140179550271360] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:33:50.844752 2024] [mpm_event:notice] [pid 1:tid 140179550271360] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:33:50.847202 2024] [core:notice] [pid 1:tid 140179550271360] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:34:53.051435 2024] [mpm_event:notice] [pid 1:tid 140179550271360] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:34:57.971553 2024] [ssl:error] [pid 1:tid 140203604301696] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 33F42E18E495485EA19F0628E9E087F18DF3E8E0 / notbefore: May  4 19:34:57 2024 GMT / notafter: May  4 19:34:57 2025 GMT]
+[Sat May 04 19:34:57.971711 2024] [ssl:error] [pid 1:tid 140203604301696] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:34:57.971849 2024] [security2:notice] [pid 1:tid 140203604301696] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:34:57.971864 2024] [security2:notice] [pid 1:tid 140203604301696] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:34:57.971877 2024] [security2:notice] [pid 1:tid 140203604301696] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:34:57.971887 2024] [security2:notice] [pid 1:tid 140203604301696] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:34:57.971916 2024] [security2:notice] [pid 1:tid 140203604301696] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:34:57.971926 2024] [security2:notice] [pid 1:tid 140203604301696] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:34:57.971936 2024] [security2:notice] [pid 1:tid 140203604301696] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:34:57.971945 2024] [security2:notice] [pid 1:tid 140203604301696] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:34:58.133523 2024] [ssl:error] [pid 1:tid 140203604301696] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 33F42E18E495485EA19F0628E9E087F18DF3E8E0 / notbefore: May  4 19:34:57 2024 GMT / notafter: May  4 19:34:57 2025 GMT]
+[Sat May 04 19:34:58.133629 2024] [ssl:error] [pid 1:tid 140203604301696] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:34:58.147394 2024] [mpm_event:notice] [pid 1:tid 140203604301696] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:34:58.147564 2024] [core:notice] [pid 1:tid 140203604301696] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:42:16.644926 2024] [mpm_event:notice] [pid 1:tid 140203604301696] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:42:25.774670 2024] [ssl:error] [pid 1:tid 139707484006272] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 585CED2CF7E5DB7215DA640DD38F39BE6108241A / notbefore: May  4 19:42:25 2024 GMT / notafter: May  4 19:42:25 2025 GMT]
+[Sat May 04 19:42:25.775478 2024] [ssl:error] [pid 1:tid 139707484006272] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:42:25.775775 2024] [security2:notice] [pid 1:tid 139707484006272] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:42:25.775912 2024] [security2:notice] [pid 1:tid 139707484006272] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:42:25.776047 2024] [security2:notice] [pid 1:tid 139707484006272] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:42:25.776220 2024] [security2:notice] [pid 1:tid 139707484006272] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:42:25.776353 2024] [security2:notice] [pid 1:tid 139707484006272] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:42:25.776493 2024] [security2:notice] [pid 1:tid 139707484006272] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:42:25.776632 2024] [security2:notice] [pid 1:tid 139707484006272] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:42:25.776772 2024] [security2:notice] [pid 1:tid 139707484006272] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:42:25.956846 2024] [ssl:error] [pid 1:tid 139707484006272] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 585CED2CF7E5DB7215DA640DD38F39BE6108241A / notbefore: May  4 19:42:25 2024 GMT / notafter: May  4 19:42:25 2025 GMT]
+[Sat May 04 19:42:25.956939 2024] [ssl:error] [pid 1:tid 139707484006272] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:42:25.971875 2024] [mpm_event:notice] [pid 1:tid 139707484006272] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:42:25.972084 2024] [core:notice] [pid 1:tid 139707484006272] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:44:07.376032 2024] [mpm_event:notice] [pid 1:tid 139707484006272] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:44:23.547100 2024] [ssl:error] [pid 1:tid 140178753697664] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 1CA6A8E84DAD5A0F0C08FE615794AD37DB89A063 / notbefore: May  4 19:44:23 2024 GMT / notafter: May  4 19:44:23 2025 GMT]
+[Sat May 04 19:44:23.547507 2024] [ssl:error] [pid 1:tid 140178753697664] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:44:23.547769 2024] [security2:notice] [pid 1:tid 140178753697664] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:44:23.547905 2024] [security2:notice] [pid 1:tid 140178753697664] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:44:23.548038 2024] [security2:notice] [pid 1:tid 140178753697664] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:44:23.548194 2024] [security2:notice] [pid 1:tid 140178753697664] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:44:23.548329 2024] [security2:notice] [pid 1:tid 140178753697664] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:44:23.548468 2024] [security2:notice] [pid 1:tid 140178753697664] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:44:23.548596 2024] [security2:notice] [pid 1:tid 140178753697664] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:44:23.548723 2024] [security2:notice] [pid 1:tid 140178753697664] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:44:23.796476 2024] [ssl:error] [pid 1:tid 140178753697664] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 1CA6A8E84DAD5A0F0C08FE615794AD37DB89A063 / notbefore: May  4 19:44:23 2024 GMT / notafter: May  4 19:44:23 2025 GMT]
+[Sat May 04 19:44:23.796762 2024] [ssl:error] [pid 1:tid 140178753697664] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:44:23.807072 2024] [mpm_event:notice] [pid 1:tid 140178753697664] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:44:23.807476 2024] [core:notice] [pid 1:tid 140178753697664] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:48:17.427368 2024] [mpm_event:notice] [pid 1:tid 140178753697664] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:48:22.932698 2024] [ssl:error] [pid 1:tid 140711026722688] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 4484D6CAA59C545ACF98DDCBA27BE7D660240FCE / notbefore: May  4 19:48:22 2024 GMT / notafter: May  4 19:48:22 2025 GMT]
+[Sat May 04 19:48:22.932855 2024] [ssl:error] [pid 1:tid 140711026722688] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:48:22.932977 2024] [security2:notice] [pid 1:tid 140711026722688] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:48:22.932992 2024] [security2:notice] [pid 1:tid 140711026722688] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:48:22.933004 2024] [security2:notice] [pid 1:tid 140711026722688] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:48:22.933034 2024] [security2:notice] [pid 1:tid 140711026722688] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:48:22.933044 2024] [security2:notice] [pid 1:tid 140711026722688] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:48:22.933053 2024] [security2:notice] [pid 1:tid 140711026722688] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:48:22.933063 2024] [security2:notice] [pid 1:tid 140711026722688] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:48:22.933072 2024] [security2:notice] [pid 1:tid 140711026722688] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:48:23.092809 2024] [ssl:error] [pid 1:tid 140711026722688] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 4484D6CAA59C545ACF98DDCBA27BE7D660240FCE / notbefore: May  4 19:48:22 2024 GMT / notafter: May  4 19:48:22 2025 GMT]
+[Sat May 04 19:48:23.092901 2024] [ssl:error] [pid 1:tid 140711026722688] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:48:23.103710 2024] [mpm_event:notice] [pid 1:tid 140711026722688] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:48:23.106301 2024] [core:notice] [pid 1:tid 140711026722688] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:49:17.624553 2024] [mpm_event:notice] [pid 1:tid 140711026722688] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:49:20.228925 2024] [ssl:error] [pid 1:tid 140494629472128] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 7AD37B8C47BA585CCC4AFE9721564362D572343B / notbefore: May  4 19:49:19 2024 GMT / notafter: May  4 19:49:19 2025 GMT]
+[Sat May 04 19:49:20.229085 2024] [ssl:error] [pid 1:tid 140494629472128] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:49:20.229231 2024] [security2:notice] [pid 1:tid 140494629472128] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:49:20.229251 2024] [security2:notice] [pid 1:tid 140494629472128] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:49:20.229265 2024] [security2:notice] [pid 1:tid 140494629472128] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:49:20.229275 2024] [security2:notice] [pid 1:tid 140494629472128] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:49:20.229285 2024] [security2:notice] [pid 1:tid 140494629472128] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:49:20.229294 2024] [security2:notice] [pid 1:tid 140494629472128] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:49:20.229304 2024] [security2:notice] [pid 1:tid 140494629472128] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:49:20.229313 2024] [security2:notice] [pid 1:tid 140494629472128] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:49:20.386983 2024] [ssl:error] [pid 1:tid 140494629472128] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 7AD37B8C47BA585CCC4AFE9721564362D572343B / notbefore: May  4 19:49:19 2024 GMT / notafter: May  4 19:49:19 2025 GMT]
+[Sat May 04 19:49:20.387068 2024] [ssl:error] [pid 1:tid 140494629472128] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:49:20.398144 2024] [mpm_event:notice] [pid 1:tid 140494629472128] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:49:20.398522 2024] [core:notice] [pid 1:tid 140494629472128] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:52:14.581346 2024] [mpm_event:notice] [pid 1:tid 140494629472128] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:52:22.185617 2024] [ssl:error] [pid 1:tid 140065299572608] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 62C411BFE2953313FB1DE1919225764BDB157425 / notbefore: May  4 19:52:21 2024 GMT / notafter: May  4 19:52:21 2025 GMT]
+[Sat May 04 19:52:22.185791 2024] [ssl:error] [pid 1:tid 140065299572608] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:52:22.185941 2024] [security2:notice] [pid 1:tid 140065299572608] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:52:22.185956 2024] [security2:notice] [pid 1:tid 140065299572608] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:52:22.185970 2024] [security2:notice] [pid 1:tid 140065299572608] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:52:22.185980 2024] [security2:notice] [pid 1:tid 140065299572608] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:52:22.185990 2024] [security2:notice] [pid 1:tid 140065299572608] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:52:22.185999 2024] [security2:notice] [pid 1:tid 140065299572608] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:52:22.186008 2024] [security2:notice] [pid 1:tid 140065299572608] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:52:22.186018 2024] [security2:notice] [pid 1:tid 140065299572608] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:52:22.356617 2024] [ssl:error] [pid 1:tid 140065299572608] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 62C411BFE2953313FB1DE1919225764BDB157425 / notbefore: May  4 19:52:21 2024 GMT / notafter: May  4 19:52:21 2025 GMT]
+[Sat May 04 19:52:22.356702 2024] [ssl:error] [pid 1:tid 140065299572608] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:52:22.371589 2024] [mpm_event:notice] [pid 1:tid 140065299572608] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:52:22.371741 2024] [core:notice] [pid 1:tid 140065299572608] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:54:22.510442 2024] [mpm_event:notice] [pid 1:tid 140065299572608] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:54:26.502527 2024] [ssl:error] [pid 1:tid 140385387026304] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 47C049139A24CF50AC6E8C148A56295A3A91E7F8 / notbefore: May  4 19:54:26 2024 GMT / notafter: May  4 19:54:26 2025 GMT]
+[Sat May 04 19:54:26.503137 2024] [ssl:error] [pid 1:tid 140385387026304] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:54:26.503436 2024] [security2:notice] [pid 1:tid 140385387026304] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:54:26.503584 2024] [security2:notice] [pid 1:tid 140385387026304] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:54:26.503744 2024] [security2:notice] [pid 1:tid 140385387026304] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:54:26.503905 2024] [security2:notice] [pid 1:tid 140385387026304] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:54:26.504045 2024] [security2:notice] [pid 1:tid 140385387026304] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:54:26.504202 2024] [security2:notice] [pid 1:tid 140385387026304] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:54:26.504334 2024] [security2:notice] [pid 1:tid 140385387026304] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:54:26.504462 2024] [security2:notice] [pid 1:tid 140385387026304] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:54:26.695826 2024] [ssl:error] [pid 1:tid 140385387026304] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 47C049139A24CF50AC6E8C148A56295A3A91E7F8 / notbefore: May  4 19:54:26 2024 GMT / notafter: May  4 19:54:26 2025 GMT]
+[Sat May 04 19:54:26.695920 2024] [ssl:error] [pid 1:tid 140385387026304] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:54:26.708583 2024] [mpm_event:notice] [pid 1:tid 140385387026304] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:54:26.709068 2024] [core:notice] [pid 1:tid 140385387026304] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:55:51.822515 2024] [mpm_event:notice] [pid 1:tid 140385387026304] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:55:56.033164 2024] [ssl:error] [pid 1:tid 139920795436928] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 127DF438DC1857FB94C85C2701F1BCFCB59A86B1 / notbefore: May  4 19:55:55 2024 GMT / notafter: May  4 19:55:55 2025 GMT]
+[Sat May 04 19:55:56.033927 2024] [ssl:error] [pid 1:tid 139920795436928] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:55:56.034256 2024] [security2:notice] [pid 1:tid 139920795436928] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:55:56.034414 2024] [security2:notice] [pid 1:tid 139920795436928] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:55:56.034560 2024] [security2:notice] [pid 1:tid 139920795436928] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:55:56.034715 2024] [security2:notice] [pid 1:tid 139920795436928] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:55:56.034855 2024] [security2:notice] [pid 1:tid 139920795436928] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:55:56.034990 2024] [security2:notice] [pid 1:tid 139920795436928] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:55:56.035147 2024] [security2:notice] [pid 1:tid 139920795436928] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:55:56.035281 2024] [security2:notice] [pid 1:tid 139920795436928] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:55:56.218100 2024] [ssl:error] [pid 1:tid 139920795436928] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 127DF438DC1857FB94C85C2701F1BCFCB59A86B1 / notbefore: May  4 19:55:55 2024 GMT / notafter: May  4 19:55:55 2025 GMT]
+[Sat May 04 19:55:56.218471 2024] [ssl:error] [pid 1:tid 139920795436928] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:55:56.232429 2024] [mpm_event:notice] [pid 1:tid 139920795436928] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:55:56.232929 2024] [core:notice] [pid 1:tid 139920795436928] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 19:59:02.045745 2024] [mpm_event:notice] [pid 1:tid 139920795436928] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 19:59:04.753667 2024] [ssl:error] [pid 1:tid 139788119816064] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 567BB6E7E6939C58C8F0CE4F32C2B43D3FDE02A1 / notbefore: May  4 19:59:04 2024 GMT / notafter: May  4 19:59:04 2025 GMT]
+[Sat May 04 19:59:04.754318 2024] [ssl:error] [pid 1:tid 139788119816064] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:59:04.754588 2024] [security2:notice] [pid 1:tid 139788119816064] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 19:59:04.754768 2024] [security2:notice] [pid 1:tid 139788119816064] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 19:59:04.754903 2024] [security2:notice] [pid 1:tid 139788119816064] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 19:59:04.755033 2024] [security2:notice] [pid 1:tid 139788119816064] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 19:59:04.755189 2024] [security2:notice] [pid 1:tid 139788119816064] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 19:59:04.755322 2024] [security2:notice] [pid 1:tid 139788119816064] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 19:59:04.755450 2024] [security2:notice] [pid 1:tid 139788119816064] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 19:59:04.755580 2024] [security2:notice] [pid 1:tid 139788119816064] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 19:59:04.921791 2024] [ssl:error] [pid 1:tid 139788119816064] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 567BB6E7E6939C58C8F0CE4F32C2B43D3FDE02A1 / notbefore: May  4 19:59:04 2024 GMT / notafter: May  4 19:59:04 2025 GMT]
+[Sat May 04 19:59:04.921872 2024] [ssl:error] [pid 1:tid 139788119816064] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 19:59:04.933866 2024] [mpm_event:notice] [pid 1:tid 139788119816064] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 19:59:04.934005 2024] [core:notice] [pid 1:tid 139788119816064] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sat May 04 20:06:35.446139 2024] [mpm_event:notice] [pid 1:tid 139788119816064] AH00492: caught SIGWINCH, shutting down gracefully
+[Sat May 04 20:06:37.612715 2024] [ssl:error] [pid 1:tid 139998649534336] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 7ECC67426F968D17044CED02ED5769BCB933AA9D / notbefore: May  4 20:06:37 2024 GMT / notafter: May  4 20:06:37 2025 GMT]
+[Sat May 04 20:06:37.612895 2024] [ssl:error] [pid 1:tid 139998649534336] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 20:06:37.613018 2024] [security2:notice] [pid 1:tid 139998649534336] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sat May 04 20:06:37.613033 2024] [security2:notice] [pid 1:tid 139998649534336] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sat May 04 20:06:37.613046 2024] [security2:notice] [pid 1:tid 139998649534336] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sat May 04 20:06:37.613075 2024] [security2:notice] [pid 1:tid 139998649534336] ModSecurity: LUA compiled version="Lua 5.3"
+[Sat May 04 20:06:37.613085 2024] [security2:notice] [pid 1:tid 139998649534336] ModSecurity: YAJL compiled version="2.1.0"
+[Sat May 04 20:06:37.613094 2024] [security2:notice] [pid 1:tid 139998649534336] ModSecurity: LIBXML compiled version="2.9.14"
+[Sat May 04 20:06:37.613132 2024] [security2:notice] [pid 1:tid 139998649534336] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sat May 04 20:06:37.613149 2024] [security2:notice] [pid 1:tid 139998649534336] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sat May 04 20:06:37.651163 2024] [ssl:error] [pid 1:tid 139998649534336] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 7ECC67426F968D17044CED02ED5769BCB933AA9D / notbefore: May  4 20:06:37 2024 GMT / notafter: May  4 20:06:37 2025 GMT]
+[Sat May 04 20:06:37.651263 2024] [ssl:error] [pid 1:tid 139998649534336] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sat May 04 20:06:37.656326 2024] [mpm_event:notice] [pid 1:tid 139998649534336] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sat May 04 20:06:37.656672 2024] [core:notice] [pid 1:tid 139998649534336] AH00094: Command line: 'httpd -D FOREGROUND'
+[Sun May 05 06:14:55.372339 2024] [mpm_event:notice] [pid 1:tid 139998649534336] AH00492: caught SIGWINCH, shutting down gracefully
+[Sun May 05 06:15:08.754901 2024] [ssl:error] [pid 1:tid 140056703268736] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 6E9E47E27E56CDF2D3A2CC8E2DB19EB7D2780669 / notbefore: May  5 06:15:08 2024 GMT / notafter: May  5 06:15:08 2025 GMT]
+[Sun May 05 06:15:08.755846 2024] [ssl:error] [pid 1:tid 140056703268736] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sun May 05 06:15:08.756296 2024] [security2:notice] [pid 1:tid 140056703268736] ModSecurity for Apache/2.9.7 (http://www.modsecurity.org/) configured.
+[Sun May 05 06:15:08.756474 2024] [security2:notice] [pid 1:tid 140056703268736] ModSecurity: APR compiled version="1.7.2"; loaded version="1.7.2"
+[Sun May 05 06:15:08.756635 2024] [security2:notice] [pid 1:tid 140056703268736] ModSecurity: PCRE compiled version="8.39 "; loaded version="8.39 2016-06-14"
+[Sun May 05 06:15:08.756783 2024] [security2:notice] [pid 1:tid 140056703268736] ModSecurity: LUA compiled version="Lua 5.3"
+[Sun May 05 06:15:08.756931 2024] [security2:notice] [pid 1:tid 140056703268736] ModSecurity: YAJL compiled version="2.1.0"
+[Sun May 05 06:15:08.757085 2024] [security2:notice] [pid 1:tid 140056703268736] ModSecurity: LIBXML compiled version="2.9.14"
+[Sun May 05 06:15:08.757327 2024] [security2:notice] [pid 1:tid 140056703268736] ModSecurity: Original server signature: Apache/2.4.59 (Unix) OpenSSL/3.0.11
+[Sun May 05 06:15:08.757499 2024] [security2:notice] [pid 1:tid 140056703268736] ModSecurity: Status engine is currently disabled, enable it by set SecStatusEngine to On.
+[Sun May 05 06:15:08.819304 2024] [ssl:error] [pid 1:tid 140056703268736] AH02217: ssl_stapling_init_cert: can't retrieve issuer certificate! [subject: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / issuer: OU=MyUnit,O=MyOrg,L=NY,ST=NY,C=US,emailAddress=none@none.com,CN=localhost / serial: 6E9E47E27E56CDF2D3A2CC8E2DB19EB7D2780669 / notbefore: May  5 06:15:08 2024 GMT / notafter: May  5 06:15:08 2025 GMT]
+[Sun May 05 06:15:08.819602 2024] [ssl:error] [pid 1:tid 140056703268736] AH02604: Unable to configure certificate localhost:8443:0 for stapling
+[Sun May 05 06:15:08.833546 2024] [mpm_event:notice] [pid 1:tid 140056703268736] AH00489: Apache/2.4.59 (Unix) OpenSSL/3.0.11 Apache configured -- resuming normal operations
+[Sun May 05 06:15:08.833993 2024] [core:notice] [pid 1:tid 140056703268736] AH00094: Command line: 'httpd -D FOREGROUND'

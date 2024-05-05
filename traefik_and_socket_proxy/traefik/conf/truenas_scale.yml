@@ -1,0 +1,26 @@
+http:
+  routers:
+    truenas:
+      rule: "Host(`truenas.machoboiverse.cloud`)"
+      service: truenas-service
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: production
+
+  services:
+    truenas-service:
+      loadBalancer:
+        passHostHeader: true
+        serversTransport: "truenas"
+        servers:
+        - url: "https://10.10.10.110"
+        - url: "https://10.10.10.209"
+        healthCheck:
+          path: "/ping"
+          interval: "10s"
+          timeout: "3s"
+          
+  serversTransports:
+    truenas:
+      insecureSkipVerify: true

@@ -1,0 +1,16 @@
+---
+services:
+  vault:
+    image: hashicorp/vault:1.16
+    container_name: vault
+    cap_add:
+      - "IPC_LOCK"
+    ports:
+      - "8200:8200"
+    volumes:
+      - vault-data:/vault/file
+      - ./config:/vault/config
+    entrypoint: vault server -config=/vault/config/vault-server.hcl
+
+volumes:
+  vault-data:

@@ -1,0 +1,235 @@
+services:
+  grafana:
+    depends_on:
+      - prometheus
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 2m0s
+    image: grafana/grafana:latest
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 3000
+        published: 3000
+        protocol: tcp
+    user: "0"
+    volumes:
+      - type: bind
+        source: /root/docker/homelab/monitoring/grafana-data
+        target: /var/lib/grafana
+  homepage:
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 2m0s
+    environment:
+      HOMEPAGE_VAR_ADGUARD_API_PASS: AdGuardDNSServer
+      HOMEPAGE_VAR_ADGUARD_API_USER: admin
+      HOMEPAGE_VAR_GRAFANA_PASS: GrafanaBayba@69
+      HOMEPAGE_VAR_GRAFANA_USER: admin
+      HOMEPAGE_VAR_PIHOLE_API_KEY: a1a490b4469fdb0ffa212c88213f3db126aecb4f0566b7b3af586bd3ea9c9d6c
+      HOMEPAGE_VAR_PROXMOX_SECRET: 8ca2bad9-6481-4933-8ecb-767146e30fa6
+      HOMEPAGE_VAR_PROXMOX_USER: homepage@pam!homepage-token
+      HOMEPAGE_VAR_PYLOAD_PASS: pyload
+      HOMEPAGE_VAR_PYLOAD_USER: pyload
+      HOMEPAGE_VAR_TRUENAS_CORE_API_KEY: 1-o6SrWPCrFM3NQB1y9tOJbLphepDJzXUSLUjfCZzt3YfjNDnSyKkslogc0saNpOc3
+    image: ghcr.io/gethomepage/homepage:v0.8.12
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 3000
+        published: 80
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /root/docker/homelab/homepage/config
+        target: /app/config
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /root/docker/homelab/homepage/images
+        target: /app/public/images
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+        bind:
+          create_host_path: true
+  mysql:
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 2m0s
+    environment:
+      MYSQL_DATABASE: speedtest_tracker
+      MYSQL_PASSWORD: speedtest_tracker
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: speedtest
+      TZ: Asia/Kolkata
+    image: mysql:8
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 3306
+        published: 3306
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: mysql-data
+        target: /var/lib/mysql
+        volume: {}
+  prometheus:
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 2m0s
+    image: prom/prometheus:v2.51.1
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 9090
+        published: 9090
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /root/docker/homelab/monitoring/prometheus-data/prometheus.yml
+        target: /etc/prometheus/prometheus.yml
+      - type: volume
+        source: prometheus-data
+        target: /prometheus
+  pyload-ng:
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 2m0s
+    environment:
+      PGID: "1000"
+      PUID: "1000"
+      TZ: Asia/Kolkata
+    image: lscr.io/linuxserver/pyload-ng:latest
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8000
+        published: 8000
+        protocol: tcp
+      - mode: ingress
+        target: 9666
+        published: 9666
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /root/docker/homelab/pyload/config
+        target: /config
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /mnt/nas/pyload/downloads
+        target: /downloads
+        bind:
+          create_host_path: true
+  qbittorrent:
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 2m0s
+    environment:
+      PGID: "1000"
+      PUID: "1000"
+      TORRENTING_PORT: "6881"
+      TZ: Etc/UTC
+      WEBUI_PORT: "8080"
+    image: lscr.io/linuxserver/qbittorrent:latest
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: 8080
+        protocol: tcp
+      - mode: ingress
+        target: 6881
+        published: 6881
+        protocol: tcp
+      - mode: ingress
+        target: 6881
+        published: 6881
+        protocol: udp
+    volumes:
+      - type: bind
+        source: /root/docker/homelab/qbittorrent/config/qBittorrent.conf
+        target: /config/qBittorrent/qBittorrent.conf
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /mnt/nas/qbittorrent/downloads
+        target: /downloads
+        bind:
+          create_host_path: true
+  speedtest-tracker:
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 5
+        window: 2m0s
+    environment:
+      DB_CONNECTION: mysql
+      DB_DATABASE: speedtest_tracker
+      DB_HOST: mysql
+      DB_PASSWORD: speedtest_tracker
+      DB_PORT: "3306"
+      DB_USERNAME: speedtest
+      PGID: "1000"
+      PUID: "1000"
+      TZ: Asia/Kolkata
+    image: lscr.io/linuxserver/speedtest-tracker:0.19.0
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 443
+        published: 8090
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: /root/docker/homelab/speedtest-tracker/config
+        target: /config
+        bind:
+          create_host_path: true
+    depends_on:
+      - mysql
+networks:
+  default:
+    name: homelab_default
+volumes:
+  mysql-data:
+    name: homelab_mysql-data
+  prometheus-data:
+    name: homelab_prometheus-data
