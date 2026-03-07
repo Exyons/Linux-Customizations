@@ -267,6 +267,18 @@ bind = $mainMod SHIFT, S, movetoworkspace, special:magic
 # Style the special workspace to look like a floating overlay
 workspace = special:magic, gapsout:50, gapsin:10, bg:blur
 
+# Instantly teleport the active workspace to the external projector
+bind = $mainMod SHIFT, P, movecurrentworkspacetomonitor, HDMI-A-1
+
+# Teleport it back to the laptop screen
+bind = $mainMod SHIFT, O, movecurrentworkspacetomonitor, eDP-1
+
+# Turn OFF laptop screen (Projector only)
+bind = $mainMod, F7, exec, hyprctl keyword monitor eDP-1,disable
+
+# Turn ON laptop screen (Normal mode)
+bind = $mainMod SHIFT, F7, exec, hyprctl keyword monitor eDP-1,preferred,auto,1
+
 # Multimedia keys
 bindel = ,XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 1%+
 bindel = ,XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-
