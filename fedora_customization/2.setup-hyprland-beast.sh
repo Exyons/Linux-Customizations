@@ -442,6 +442,9 @@ windowrule {
     float = yes
     center = true
 }
+
+windowrule = float yes, center true, match:class org.kde.gwenview, match:title ^(.*Gwenview.*)$
+windowrule = float yes, center true, size 1000 600, match:class org.gnome.Totem
 HYPREOF
 
 cat << 'IDLEEOF' > "$HOME/.config/hypr/hypridle.conf"
