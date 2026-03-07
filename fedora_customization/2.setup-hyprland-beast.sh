@@ -252,6 +252,21 @@ bind = $mainMod, 3, workspace, 3
 bind = $mainMod, 4, workspace, 4
 bind = $mainMod, 5, workspace, 5
 
+# Cycle forward through windows on the current workspace
+bind = ALT, Tab, cyclenext,
+bind = ALT, Tab, bringactivetotop,
+
+# Cycle backward through windows (Shift + Alt + Tab)
+bind = ALT SHIFT, Tab, cyclenext, prev
+bind = ALT SHIFT, Tab, bringactivetotop,
+# Summon or hide the scratchpad with SUPER + B
+bind = $mainMod, S, togglespecialworkspace, magic
+
+# Send the currently active window to the scratchpad with SUPER + SHIFT + B
+bind = $mainMod SHIFT, S, movetoworkspace, special:magic
+# Style the special workspace to look like a floating overlay
+workspace = special:magic, gapsout:50, gapsin:10, bg:blur
+
 # Multimedia keys
 bindel = ,XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 1%+
 bindel = ,XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-
