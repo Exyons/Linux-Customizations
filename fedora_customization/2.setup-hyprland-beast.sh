@@ -443,9 +443,44 @@ windowrule {
     center = true
 }
 
-windowrule = float yes, center true, match:class org.kde.gwenview, match:title ^(.*Gwenview.*)$
+windowrule = float yes, center true, match:class org.kde.gwenview
 windowrule = float yes, center true, size 1000 600, match:class org.gnome.Totem
 HYPREOF
+
+# Set global mimetypes 
+cat << 'MIMEEOF' > "$HOME/.config/mimeapps.list"
+[Default Applications]
+# Text and Code (Routes to your terminal editor)
+text/plain=nvim.desktop
+text/markdown=nvim.desktop
+text/x-python=nvim.desktop
+
+# Images (Gwenview)
+image/png=org.kde.gwenview.desktop
+image/jpeg=org.kde.gwenview.desktop
+image/jpg=org.kde.gwenview.desktop
+image/gif=org.kde.gwenview.desktop
+image/webp=org.kde.gwenview.desktop
+image/svg+xml=org.kde.gwenview.desktop
+image/bmp=org.kde.gwenview.desktop
+image/tiff=org.kde.gwenview.desktop
+
+# Videos (GNOME video player)
+video/mp4=org.gnome.Totem.desktop
+video/x-matroska=org.gnome.Totem.desktop
+video/webm=org.gnome.Totem.desktop
+video/x-msvideo=org.gnome.Totem.desktop
+video/quicktime=org.gnome.Totem.desktop
+video/x-flv=org.gnome.Totem.desktop
+video/mpeg=org.gnome.Totem.desktop
+
+# PDFs and Documents
+application/pdf=org.mozilla.firefox.desktop
+
+# Web Links
+x-scheme-handler/http=org.mozilla.firefox.desktop
+x-scheme-handler/https=org.moziall.firefox.desktop
+MIMEEOF
 
 cat << 'IDLEEOF' > "$HOME/.config/hypr/hypridle.conf"
 general {
