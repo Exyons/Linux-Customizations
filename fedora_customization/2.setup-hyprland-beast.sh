@@ -355,6 +355,33 @@ windowrule {
     float = yes
 }
 
+# ==========================================
+# WINDOW GROUPING (TABBED) AESTHETICS
+# ==========================================
+group {
+    # A fiery Peach-to-Red gradient that drastically stands out from normal windows
+    col.border_active = rgba(89b4faff) rgba(fab387ff) rgba(94e2d5ff) rgba(f38ba8ff) 45deg
+    
+    # Muted grey for inactive grouped borders
+    col.border_inactive = rgba(45475acc)
+
+    groupbar {
+        font_family = Segoe UI Variable
+        font_size = 12
+        
+        # Solid Red for the active tab (perfect contrast for white text)
+        col.active = rgba(f38ba8e6)
+        
+        # Muted dark background for inactive tabs
+        col.inactive = rgba(313244cc)
+        
+        # Pure, bright white text for the window titles
+        text_color = rgba(ffffffff)
+    }
+}
+
+
+
 ##########################################################################
 ########################### HyDE Window Rules ############################
 ##########################################################################
