@@ -251,6 +251,30 @@ bind = $mainMod, 2, workspace, 2
 bind = $mainMod, 3, workspace, 3
 bind = $mainMod, 4, workspace, 4
 bind = $mainMod, 5, workspace, 5
+bind = $mainMod, 7, workspace, 7
+bind = $mainMod, 8, workspace, 8
+bind = $mainMod, 9, workspace, 9
+# ==========================================
+# MOVE FOCUSED WINDOW TO WORKSPACE
+# ==========================================
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+bind = $mainMod SHIFT, 6, movetoworkspace, 6
+bind = $mainMod SHIFT, 7, movetoworkspace, 7
+bind = $mainMod SHIFT, 8, movetoworkspace, 8
+bind = $mainMod SHIFT, 9, movetoworkspace, 9
+
+# Turn the current window into a group, or add a window to an active group
+bind = $mainMod, G, togglegroup
+# Cycle through the tabs inside the group
+bind = $mainMod, Tab, changegroupactive
+
+bind = $mainMod, P, pin
+
+bind = $mainMod, J, togglesplit
 
 # Cycle forward through windows on the current workspace
 bind = ALT, Tab, cyclenext,
@@ -259,11 +283,25 @@ bind = ALT, Tab, bringactivetotop,
 # Cycle backward through windows (Shift + Alt + Tab)
 bind = ALT SHIFT, Tab, cyclenext, prev
 bind = ALT SHIFT, Tab, bringactivetotop,
-# Summon or hide the scratchpad with SUPER + B
+
+# Summon or hide the scratchpad with SUPER + S
 bind = $mainMod, S, togglespecialworkspace, magic
 
-# Send the currently active window to the scratchpad with SUPER + SHIFT + B
+# Send the currently active window to the scratchpad with SUPER + SHIFT + S
 bind = $mainMod SHIFT, S, movetoworkspace, special:magic
+
+# ==========================================
+# SCRATCHPAD SEND & RETRIEVE
+# ==========================================
+# 1. View the scratchpad overlay
+bind = $mainMod, B, togglespecialworkspace, magic
+
+# 2. Send the active window TO the scratchpad
+bind = $mainMod SHIFT, B, movetoworkspace, special:magic
+
+# 3. Pull a window OUT of the scratchpad to your current workspace
+bind = $mainMod SHIFT, C, movetoworkspace, e+0
+
 # Style the special workspace to look like a floating overlay
 workspace = special:magic, gapsout:50, gapsin:10, bg:blur
 
