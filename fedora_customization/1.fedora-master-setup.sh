@@ -309,6 +309,7 @@ alias ld='eza -lhD --icons=auto'
 alias lt='eza --icons=auto --tree'                                     
 
 # Package Management (Fedora native)
+alias in='sudo dnf install'                  # install package(s)
 alias un='sudo dnf remove'                   # uninstall package
 alias up='sudo dnf upgrade --refresh'        # update system
 alias pl='dnf list installed'                # list installed package
