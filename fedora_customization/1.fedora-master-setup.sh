@@ -301,6 +301,10 @@ alias grep="grep --color=auto"
 alias reload="source ~/.zshrc"
 alias c='clear'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+# Drop-in replacement: syntax highlighting, no line numbers, no pagination
+alias cat='bat --style=plain --paging=never'
+# Full power: syntax highlighting, line numbers, and git integration
+alias catn='bat'
 
 # Eza (Modern ls replacements)
 alias l='eza -lh --icons=auto'                                         
