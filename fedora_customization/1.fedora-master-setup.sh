@@ -259,6 +259,7 @@ source $ZSH/oh-my-zsh.sh
 # ENVIRONMENT VARIABLES & PATHS
 # ==========================================
 export EDITOR=nvim
+export BAT_THEME="Dracula"
 export PATH="$HOME/.local/bin:$HOME/.bun/bin:$PATH"
 
 # Start pokego
