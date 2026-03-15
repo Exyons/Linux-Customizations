@@ -433,6 +433,28 @@ sudo plymouth-set-default-theme -R bgrt
 sudo sed -i 's/^GRUB_TIMEOUT=.*/GRUB_TIMEOUT=1/' /etc/default/grub && \
 sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 
+echo "Installing anti-flashbang service to keep your retinas safe when system wakes after suspend..."
+sudo tee /etc/systemd/system/backlight-resume.service > /dev/null << 'EOF'
+[Unit]
+Description=Save and Restore Brightness Across Suspend
+Before=sleep.target
+StopWhenUnneeded=yes
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+
+# Save the exact brightness state right before sleep
+ExecStart=/usr/bin/brightnessctl --save
+
+# When waking up, wait 3 seconds for the NVIDIA/Wayland drivers to initialize, then restore
+ExecStop=/bin/bash -c "sleep 3 && /usr/bin/brightnessctl --restore"
+
+[Install]
+WantedBy=sleep.target
+EOF
+sudo systemctl enable backlight-resume.service
+
 echo -e "\n---> [15/17] Installing SDDM Astronaut Theme (Pixel Sakura)..."
 # Install specific Qt6 dependencies required to render Astronaut correctly
 sudo dnf install -y qt6-qtsvg qt6-qtvirtualkeyboard qt6-qtmultimedia
