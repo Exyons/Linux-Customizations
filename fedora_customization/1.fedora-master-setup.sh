@@ -69,7 +69,7 @@ fc-cache -vf "$FONT_DIR"
 
 echo -e "\n---> [5/17] Installing Core System & Desktop Utilities..."
 sudo dnf install -y \
-    iwlwifi-mvm-firmware NetworkManager-wifi \
+    iwlwifi-mvm-firmware NetworkManager-wifi bat \
     flatpak upower libgtop2 bluez bluez-tools google-noto-color-emoji-fonts \
     grimblast hyprpicker btop NetworkManager wl-clipboard swww brightnessctl \
     gnome-bluetooth power-profiles-daemon gvfs gtksourceview3 libsoup3 \
@@ -300,6 +300,7 @@ alias beast="__NV_PRIME_RENDER_OFFLOAD=1 __VK_LAYER_NV_optimus=NVIDIA_only __GLX
 alias grep="grep --color=auto"
 alias reload="source ~/.zshrc"
 alias c='clear'
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
 # Eza (Modern ls replacements)
 alias l='eza -lh --icons=auto'                                         
