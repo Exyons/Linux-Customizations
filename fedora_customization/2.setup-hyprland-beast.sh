@@ -131,6 +131,7 @@ exec-once = uwsm app -- hyprpanel
 exec-once = hyprlauncher -d
 exec-once = hypridle
 exec-once = ~/.config/hypr/border-gradient-rotate.sh
+exec-once = /usr/libexec/polkit-mate-authentication-agent-1
 
 #############################
 ### ENVIRONMENT VARIABLES ###
