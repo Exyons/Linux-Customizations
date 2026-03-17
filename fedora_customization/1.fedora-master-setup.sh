@@ -69,7 +69,7 @@ fc-cache -vf "$FONT_DIR"
 
 echo -e "\n---> [5/17] Installing Core System & Desktop Utilities..."
 sudo dnf install -y \
-    iwlwifi-mvm-firmware NetworkManager-wifi bat \
+    iwlwifi-mvm-firmware NetworkManager-wifi bat mate-polkit \
     flatpak upower libgtop2 bluez bluez-tools google-noto-color-emoji-fonts \
     grimblast hyprpicker btop NetworkManager wl-clipboard swww brightnessctl \
     gnome-bluetooth power-profiles-daemon gvfs gtksourceview3 libsoup3 \
