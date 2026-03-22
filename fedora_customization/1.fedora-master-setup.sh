@@ -112,7 +112,7 @@ rm /tmp/pokego.tar.gz
 echo -e "\n---> [6/17] Installing Audio & Video Codecs..."
 # Core PipeWire infrastructure and all GStreamer plugins for full media compatibility
 sudo dnf install -y \
-    pipewire pipewire.i686 wireplumber pipewire-pulseaudio pipewire-alsa \
+    pipewire pipewire.i686 wireplumber pipewire-pulseaudio pipewire-alsa alsa-plugins-pulseaudio.x86_64 \
     pipewire-jack-audio-connection-kit pipewire-jack-audio-connection-kit.i686 \
     alsa-utils pavucontrol \
     gstreamer1-plugins-base gstreamer1-plugins-base.i686 cups-libs cups-libs.i686 \
