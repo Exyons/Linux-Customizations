@@ -285,20 +285,14 @@ bind = ALT, Tab, bringactivetotop,
 bind = ALT SHIFT, Tab, cyclenext, prev
 bind = ALT SHIFT, Tab, bringactivetotop,
 
-# Summon or hide the scratchpad with SUPER + S
-bind = $mainMod, S, togglespecialworkspace, magic
-
-# Send the currently active window to the scratchpad with SUPER + SHIFT + S
-bind = $mainMod SHIFT, S, movetoworkspace, special:magic
-
 # ==========================================
 # SCRATCHPAD SEND & RETRIEVE
 # ==========================================
 # 1. View the scratchpad overlay
-bind = $mainMod, B, togglespecialworkspace, magic
+bind = $mainMod, S, togglespecialworkspace, magic
 
 # 2. Send the active window TO the scratchpad
-bind = $mainMod SHIFT, B, movetoworkspace, special:magic
+bind = $mainMod SHIFT, S, movetoworkspace, special:magic
 
 # 3. Pull a window OUT of the scratchpad to your current workspace
 bind = $mainMod SHIFT, C, movetoworkspace, e+0
