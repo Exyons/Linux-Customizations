@@ -33,6 +33,7 @@ sudo dnf copr enable -y sdegler/hyprland
 sudo dnf copr enable -y tofik/nwg-shell
 sudo dnf copr enable -y heus-sueh/packages
 sudo dnf copr enable -y atim/lazygit
+sudo dnf copr enable -y bieszczaders/kernel-cachyos
 
 # DNF5 Updated Syntax for setting repository priority
 sudo dnf config-manager setopt "copr:copr.fedorainfracloud.org:heus-sueh:packages.priority=200"
@@ -69,6 +70,7 @@ fc-cache -vf "$FONT_DIR"
 
 echo -e "\n---> [5/17] Installing Core System & Desktop Utilities..."
 sudo dnf install -y \
+    kernel-cachyos kernel-cachyos-devel-matched \
     iwlwifi-mvm-firmware NetworkManager-wifi bat mate-polkit \
     flatpak upower libgtop2 bluez bluez-tools google-noto-color-emoji-fonts \
     grimblast hyprpicker btop NetworkManager wl-clipboard swww brightnessctl \
@@ -185,7 +187,51 @@ sudo dnf install -y --allowerasing \
     akmod-nvidia xorg-x11-drv-nvidia xorg-x11-drv-nvidia-libs.i686 \
     xorg-x11-drv-nvidia-cuda libva-nvidia-driver nvtop
 
-echo -e "\n---> [10/17] Forcing Nvidia Kernel Module Build & Signing..."
+echo -e "\n---> [10.1/17] Signing Cachyos kernel for secure boot..."
+# Sign cachyos kernel
+sudo openssl x509 -inform der -in /etc/pki/akmods/certs/public_key.der -out /etc/pki/akmods/certs/public_key.pem
+CACHYOS_KERNEL=$(Lls /boot/vmlinuz-*cachyos*)
+sudo sbsign --key /etc/pki/akmods/private/private_key.priv --cert /etc/pki/akmods/certs/public_key.pem ${CACHYOS_KERNEL} --output ${CACHYOS_KERNEL}
+
+# Add hook to auto sign cachyos kernels on update for secure boot
+sudo tee /etc/kernel/install.d/99-sign-cachyos-kernel.install > /dev/null << 'EOF'
+#!/bin/bash
+# ==========================================
+# AUTO-SIGN CACHYOS KERNELS FOR SECURE BOOT
+# ==========================================
+
+COMMAND="$1"
+KERNEL_VERSION="$2"
+KERNEL_IMAGE="/boot/vmlinuz-${KERNEL_VERSION}"
+
+PRIVATE_KEY="/etc/pki/akmods/private/private_key.priv"
+PUBLIC_CERT="/etc/pki/akmods/certs/public_key.pem"
+
+# 1. Abort if this is a kernel removal
+if [[ "$COMMAND" != "add" ]]; then
+    exit 0
+fi
+
+# 2. STRICT FILTER: Abort if the kernel version does NOT contain "cachyos"
+if [[ "$KERNEL_VERSION" != *"cachyos"* ]]; then
+    echo "Standard Fedora kernel detected. Skipping custom signature."
+    exit 0
+fi
+
+# 3. Ensure the keys and the new kernel actually exist, then sign
+if [[ -f "$KERNEL_IMAGE" ]] && [[ -f "$PRIVATE_KEY" ]] && [[ -f "$PUBLIC_CERT" ]]; then
+    echo "CachyOS kernel detected. Stamping $KERNEL_IMAGE with akmods key..."
+    sbsign --key "$PRIVATE_KEY" --cert "$PUBLIC_CERT" "$KERNEL_IMAGE" --output "$KERNEL_IMAGE"
+else
+    echo "Error: Missing kernel image or akmods keys."
+    exit 1
+fi
+EOF
+
+# Make hook executable
+sudo chmod +x /etc/kernel/install.d/99-sign-cachyos-kernel.install
+
+echo -e "\n---> [10.2/17] Forcing Nvidia Kernel Module Build & Signing..."
 # Because the MOK keys exist now, akmods will automatically sign the modules during compilation
 sudo akmods --force
 # Rebuild the initial ramdisk to permanently inject the signed driver and blacklist nouveau
