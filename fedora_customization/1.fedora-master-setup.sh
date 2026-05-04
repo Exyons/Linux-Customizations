@@ -180,12 +180,24 @@ sudo mokutil --import /etc/pki/akmods/certs/public_key.der
 sudo dnf config-manager setopt rpmfusion-nonfree-nvidia-driver.enabled=0 || true
 sudo dnf module disable nvidia-driver -y || true
 
-# Clean cache and install the unlocked Nvidia drivers
+## Using negativo17 repo for latest nvidia drivers
+sudo dnf remove "*nvidia*" -x nvidia-gpu-firmware
+sudo dnf config-manager addrepo --from-repofile=https://negativo17.org/repos/fedora-nvidia.repo
+# Clean cache and install the Nvidia drivers
 sudo dnf clean all
-sudo dnf update --refresh -y
+sudo dnf update -y --refresh
 sudo dnf install -y --allowerasing \
-    akmod-nvidia xorg-x11-drv-nvidia xorg-x11-drv-nvidia-libs.i686 \
-    xorg-x11-drv-nvidia-cuda libva-nvidia-driver nvtop
+    nvidia-driver \
+    nvidia-driver-cuda \
+    nvidia-settings \
+    nvidia-driver-libs.i686 \
+    libva-nvidia-driver \
+    nvidia-container-toolkit
+sudo dnf install akmod-nvidia
+## Old way
+# sudo dnf install -y --allowerasing \
+#     akmod-nvidia xorg-x11-drv-nvidia xorg-x11-drv-nvidia-libs.i686 \
+#     xorg-x11-drv-nvidia-cuda libva-nvidia-driver nvtop
 
 echo -e "\n---> [10.1/17] Signing Cachyos kernel for secure boot..."
 # Sign cachyos kernel
@@ -261,7 +273,9 @@ sudo flatpak install -y flathub \
     org.gnome.Totem \
     com.github.zocker_160.SyncThingy \
     org.gnome.Firmware \
-    org.upscayl.Upscayl
+    org.upscayl.Upscayl \
+    io.github.linx_systems.ClamUI \
+    app.zen_browser.zen
     # org.mozilla.firefox
 
 echo -e"\n---> [12/17] Installing Homebrew..."
@@ -306,7 +320,9 @@ source $ZSH/oh-my-zsh.sh
 # ==========================================
 export EDITOR=nvim
 export BAT_THEME="Dracula"
-export PATH="$HOME/.local/bin:$HOME/.bun/bin:$PATH"
+export OLLAMA_HOST="http://localhost:11434"
+export OPENROUTER_API_KEY=""
+export PATH="$HOME/.local/bin:$HOME/.bun/bin:$HOME/.cache/.bun/bin:$PATH"
 
 # Start pokego
 pokego -r 1-8
@@ -352,6 +368,14 @@ alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 alias cat='bat --style=plain --paging=never'
 # Full power: syntax highlighting, line numbers, and git integration
 alias catn='bat'
+
+# Claude code with ollama
+alias cc-kimi="ollama launch claude --model kimi-k2.5:cloud"
+alias cc-nemo="ollama launch claude --model nemotron-3-super:cloud"
+alias cc-qwen="ollama launch claude --model qwen3-coder:480b-cloud"
+alias cc-gpt="ollama launch claude --model gpt-oss:120b-cloud"
+alias cc-deepseek="ollama launch claude --model deepseek-v3:cloud"
+alias cc-glm="ollama launch claude --model glm-5:cloud"
 
 # Eza (Modern ls replacements)
 alias l='eza -lh --icons=auto'                                         
