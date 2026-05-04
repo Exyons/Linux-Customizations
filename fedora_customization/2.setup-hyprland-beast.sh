@@ -66,9 +66,9 @@ export HYPRCURSOR_SIZE=21
 # export HYPRCURSOR_THEME=Bibata-Modern-Ice
 
 # NVIDIA / acceleration
-export __GLX_VENDOR_LIBRARY_NAME=nvidia
+#export __GLX_VENDOR_LIBRARY_NAME=nvidia
 export __GL_VRR_ALLOWED=1
-export GBM_BACKEND=nvidia-drm
+#export GBM_BACKEND=nvidia-drm
 export LIBVA_DRIVER_NAME=iHD
 export NVD_BACKEND=direct
 
