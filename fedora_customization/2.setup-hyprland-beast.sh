@@ -69,7 +69,7 @@ export HYPRCURSOR_SIZE=21
 export __GLX_VENDOR_LIBRARY_NAME=nvidia
 export __GL_VRR_ALLOWED=1
 export GBM_BACKEND=nvidia-drm
-export LIBVA_DRIVER_NAME=nvidia
+export LIBVA_DRIVER_NAME=iHD
 export NVD_BACKEND=direct
 
 # Electron / misc
@@ -164,7 +164,7 @@ decoration {
         color = rgba(1a1a1aee)
     }
     blur {
-        enabled = true
+        enabled = false
         size = 3
         passes = 1
         vibrancy = 0.1696
@@ -318,9 +318,22 @@ bindel = ,XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 1%-
 bindel = ,XF86MonBrightnessUp, exec, brightnessctl -e4 -n2 set 5%+
 bindel = ,XF86MonBrightnessDown, exec, brightnessctl -e4 -n2 set 5%-
 
-##############################
-### WINDOWS AND WORKSPACES ###
-##############################
+# ==========================================
+# MOVE FOCUSED WINDOW TO WORKSPACE
+# ==========================================
+bind = $mainMod SHIFT, 1, movetoworkspace, 1
+bind = $mainMod SHIFT, 2, movetoworkspace, 2
+bind = $mainMod SHIFT, 3, movetoworkspace, 3
+bind = $mainMod SHIFT, 4, movetoworkspace, 4
+bind = $mainMod SHIFT, 5, movetoworkspace, 5
+bind = $mainMod SHIFT, 6, movetoworkspace, 6
+bind = $mainMod SHIFT, 7, movetoworkspace, 7
+bind = $mainMod SHIFT, 8, movetoworkspace, 8
+bind = $mainMod SHIFT, 9, movetoworkspace, 9
+
+============================================
+# WINDOW AND WORKSPACE RULES
+============================================
 source = ~/.config/hypr/workspaces.conf
 windowrule {
     # Ignore maximize requests from all apps. You'll probably like this.
@@ -507,6 +520,10 @@ windowrule = float yes, center true, match:class org.kde.gwenview
 windowrule = float yes, center true, size 1000 600, match:class org.gnome.Totem
 windowrule = float yes, center true, match:class net.lutris.Lutris, match:title ^(Install.*)$
 windowrule = float yes, center true, match:class net.lutris.Lutris, match:title ^(Configure.*)$
+
+render {
+    direct_scanout = true
+}
 HYPREOF
 
 # Set global mimetypes 
@@ -540,8 +557,9 @@ video/mpeg=org.gnome.Totem.desktop
 application/pdf=org.mozilla.firefox.desktop
 
 # Web Links
-x-scheme-handler/http=org.mozilla.firefox.desktop
-x-scheme-handler/https=org.moziall.firefox.desktop
+x-scheme-handler/http=app.zen_browser.zen.desktop
+x-scheme-handler/https=app.zen_browser.zen.desktop
+x-scheme-handler/claude-cli=claude-code-url-handler.desktop
 MIMEEOF
 
 cat << 'IDLEEOF' > "$HOME/.config/hypr/hypridle.conf"
