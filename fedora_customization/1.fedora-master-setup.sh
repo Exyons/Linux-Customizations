@@ -286,6 +286,54 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv zsh)"
 brew install gcc
 brew install yazi
 
+echo -e "\n---> Setting up Yazi..."
+YAZI_CONFIG_PATH="$HOME/.config/yazi"
+mkdir -p YAZI_CONFIG_PATH
+
+# Install yazi dracula flavor
+ya pkg add yazi-rs/flavors:dracula
+# Set dracula flavor
+cat <<'EOF' > "$YAZI_CONFIG_PATH/theme.toml"
+[flavor]
+dark = "dracula"
+EOF
+# Yazi config
+cat << 'EOF' > "$YAZI_CONFIG_PATH/yazi.toml"
+[mgr]
+show_hidden = true
+
+[filetype]
+rules = [
+   #############################################
+    # Add the 2 lines below
+    # Hidden files
+    { name = "*", is = "hidden", bg = "cyan" },
+    #############################################
+
+    # Special files
+    { name = "*", is = "orphan", bg = "red" },
+    { name = "*", is = "exec", fg = "green" },
+
+    # Dummy files
+    { name = "*", is = "dummy", bg = "red" },
+    { name = "*/", is = "dummy", bg = "red" },
+
+    # Fallback
+    # { name = "*", fg = "white" },
+    { name = "*/", fg = "blue" },
+]
+
+[opener]
+edit = [
+  { run = 'nvim "$@"', desc = "nvim", block = true, for = "unix" }
+]
+
+[open]
+rules = [
+  { mime = "text/*", use = "edit" }
+]
+EOF
+
 echo -e "\n---> [13/17] Configuring Oh My Zsh, LazyVim & Dynamic TUI Padding..."
 # Bootstrap LazyVim by removing existing config and pulling the starter template
 if [ -d "$HOME/.config/nvim" ]; then
