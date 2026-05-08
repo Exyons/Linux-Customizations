@@ -75,7 +75,7 @@ sudo dnf install -y \
     flatpak upower libgtop2 bluez bluez-tools google-noto-color-emoji-fonts \
     grimblast hyprpicker btop NetworkManager wl-clipboard swww brightnessctl \
     gnome-bluetooth power-profiles-daemon gvfs gtksourceview3 libsoup3 \
-    kitty dolphin htop bmon fwupd acpid samba dosbox \
+    kitty dolphin htop bmon fwupd acpid samba dosbox gnome-keyring libsecret \
     zsh hyprland hyprpanel sddm cabextract fuse fuse-libs \
     efibootmgr xfsprogs ntfs-3g dosfstools exfatprogs udftools plymouth-theme-spinner \
     linux-firmware alsa-sof-firmware microcode_ctl \
