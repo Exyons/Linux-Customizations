@@ -243,7 +243,11 @@ EOF
 # Make hook executable
 sudo chmod +x /etc/kernel/install.d/99-sign-cachyos-kernel.install
 
-echo -e "\n---> [10.2/17] Forcing Nvidia Kernel Module Build & Signing..."
+echo -e "\n---> [10.2/17] Making Cachyos kernel default..."
+sudo sed -i "s/kernel-core/kernel-cachyos-core/g" /etc/sysconfig/kernel
+sudo grubby --set-default=$(ls -t /boot/vmlinuz-*cachyos* | head -n 1)
+
+echo -e "\n---> [10.3/17] Forcing Nvidia Kernel Module Build & Signing..."
 # Because the MOK keys exist now, akmods will automatically sign the modules during compilation
 sudo akmods --force
 # Rebuild the initial ramdisk to permanently inject the signed driver and blacklist nouveau
