@@ -243,6 +243,12 @@ EOF
 # Make hook executable
 sudo chmod +x /etc/kernel/install.d/99-sign-cachyos-kernel.install
 
+# Keep only latest 2 kernels
+sudo tee /etc/dnf/dnf.conf > /dev/null << 'EOF'
+[main]
+installonly_limit=2
+EOF
+
 echo -e "\n---> [10.2/17] Making Cachyos kernel default..."
 sudo sed -i "s/kernel-core/kernel-cachyos-core/g" /etc/sysconfig/kernel
 sudo grubby --set-default=$(ls -t /boot/vmlinuz-*cachyos* | head -n 1)
