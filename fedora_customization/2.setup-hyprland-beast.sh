@@ -132,6 +132,9 @@ exec-once = hyprlauncher -d
 exec-once = hypridle
 exec-once = ~/.config/hypr/border-gradient-rotate.sh
 exec-once = /usr/libexec/polkit-mate-authentication-agent-1
+# for gnome-keyring
+exec-once = gnome-keyring-daemon --start --components=secrets,pkcs11,ssh
+exec-once = dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY XDG_CURRENT_DESKTOP
 
 #############################
 ### ENVIRONMENT VARIABLES ###
