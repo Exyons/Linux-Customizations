@@ -362,6 +362,22 @@ ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
 [ ! -d "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] && git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 [ ! -d "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting" ] && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM/plugins/zsh-syntax-highlighting"
 
+# Forcefully inject the actual, physical path of your default Node installation directly into the $PATH
+# Terminal and AI agents will just use the real binaries right from here
+cat << 'EOF' > "$HOME/.zshenv"
+# ==========================================
+# NVM AI AGENT & NON-INTERACTIVE PATH FIX
+# ==========================================
+export NVM_DIR="$HOME/.nvm"
+
+# Instantly inject the default Node version into the PATH
+# This makes node, npm, yarn, pnpm, and bun visible to AI agents instantly
+if [ -f "$NVM_DIR/alias/default" ]; then
+    DEFAULT_NODE_VER=$(cat "$NVM_DIR/alias/default")
+    export PATH="$NVM_DIR/versions/node/$DEFAULT_NODE_VER/bin:$PATH"
+fi
+EOF
+
 # Generate the minimal, high-performance .zshrc
 cat << 'EOF' > "$HOME/.zshrc"
 # ==========================================
@@ -393,25 +409,24 @@ if [ -d "$NVM_DIR/versions/node" ]; then
   export PATH="$(ls -d $NVM_DIR/versions/node/*/bin | sort -V | tail -n1):$PATH"
 fi
 
-_lazy_nvm_load() {
-    # remove shim functions
-    unset -f node npm npx nvm yarn pnpm bun
+# ==========================================
+# STREAMLINED NVM LAZY LOADER
+# ==========================================
+# node, npm, pnpm, yarn, and bun are already in the PATH via .zshenv.
+# We only need to load the heavy NVM engine when you actually type 'nvm'.
 
-    # load nvm
+nvm() {
+    # Remove the wrapper function
+    unset -f nvm
+    
+    # Load the heavy NVM engine
+    export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
     [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
-
-    # run original command
-    command "$@"
+    
+    # Execute the command
+    nvm "$@"
 }
-
-node() { _lazy_nvm_load node "$@"; }
-npm()  { _lazy_nvm_load npm "$@"; }
-npx()  { _lazy_nvm_load npx "$@"; }
-nvm()  { _lazy_nvm_load nvm "$@"; }
-yarn() { _lazy_nvm_load yarn "$@"; }
-pnpm() { _lazy_nvm_load pnpm "$@"; }
-bun()  { _lazy_nvm_load bun "$@"; }
 
 # ==========================================
 # ALIASES
