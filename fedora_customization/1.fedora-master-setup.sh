@@ -151,6 +151,11 @@ sudo tee /etc/systemd/system/user@.service.d/delegate.conf > /dev/null << 'EOF'
 Delegate=cpu cpuset io memory pids
 EOF
 
+# Installing docker engine
+sudo dnf config-manager addrepo --from-repofile https://download.docker.com/linux/fedora/docker-ce.repo
+sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo systemctl enable docker
+
 # Installing nvidia-container toolkit
 curl -s -L https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo | \
     sudo tee /etc/yum.repos.d/nvidia-container-toolkit.repo
