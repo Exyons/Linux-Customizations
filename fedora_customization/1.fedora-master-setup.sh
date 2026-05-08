@@ -75,7 +75,7 @@ sudo dnf install -y \
     flatpak upower libgtop2 bluez bluez-tools google-noto-color-emoji-fonts \
     grimblast hyprpicker btop NetworkManager wl-clipboard swww brightnessctl \
     gnome-bluetooth power-profiles-daemon gvfs gtksourceview3 libsoup3 \
-    firefox kitty dolphin htop bmon fwupd acpid samba dosbox \
+    kitty dolphin htop bmon fwupd acpid samba dosbox \
     zsh hyprland hyprpanel sddm cabextract fuse fuse-libs \
     efibootmgr xfsprogs ntfs-3g dosfstools exfatprogs udftools plymouth-theme-spinner \
     linux-firmware alsa-sof-firmware microcode_ctl \
@@ -126,7 +126,7 @@ sudo dnf install -y \
 echo -e "\n---> [7/17] Installing Steam, Lutris & 32-bit Gaming Infrastructure..."
 # Installing packages only. DXVK and Wine overrides are handled automatically inside Lutris later.
 sudo dnf install -y \
-    steam lutris blender xrandr wine winetricks wine-mono libvkd3d libvkd3d.i686 giflib giflib.i686 \
+    steam lutris xrandr wine winetricks wine-mono libvkd3d libvkd3d.i686 giflib giflib.i686 \
     libpng libpng.i686 openldap openldap.i686 gnutls gnutls.i686 \
     mpg123-libs mpg123-libs.i686 openal-soft openal-soft.i686 \
     libv4l libv4l.i686 pulseaudio-libs pulseaudio-libs.i686 \
@@ -141,7 +141,7 @@ echo -e "\n---> [8/17] Installing Developer, Container & AI Tooling..."
 # Podman stack replaces Docker cleanly using daemonless, rootless, SELinux-friendly architecture
 sudo dnf install -y \
     git neovim gcc make ripgrep fd-find lazygit fzf \
-    code antigravity torbrowser-launcher podman podman-compose podman-docker \
+    code antigravity torbrowser-launcher podman podman-compose \
     https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 
 # Give podman more permissions
@@ -155,7 +155,7 @@ EOF
 curl -s -L https://nvidia.github.io/libnvidia-container/stable/rpm/nvidia-container-toolkit.repo | \
     sudo tee /etc/yum.repos.d/nvidia-container-toolkit.repo
 
-export NVIDIA_CONTAINER_TOOLKIT_VERSION=1.18.2-1
+export NVIDIA_CONTAINER_TOOLKIT_VERSION=1.19.0-1
 sudo dnf install -y \
     nvidia-container-toolkit-${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
     nvidia-container-toolkit-base-${NVIDIA_CONTAINER_TOOLKIT_VERSION} \
