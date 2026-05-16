@@ -419,7 +419,7 @@ windowrule {
 windowrule {
     name = beast_common_popups
     tag = +beast_common_popups
-    match:title = ^(.*[Ss]ettings.*|[Ww]elcome.*|.*Preferences.*|Choose Files|Save As|Confirm to replace files|File Operation Progress|Open|Authentication Required|Add Folder to Workspace|File Upload.*|Choose wallpaper.*|Library.*|.*dialog.*)$
+    match:title = ^(New.*|.*[Ss]ettings.*|[Ww]elcome.*|.*Preferences.*|Choose Files|Save As|Confirm to replace files|File Operation Progress|Open|Authentication Required|Add Folder to Workspace|File Upload.*|Choose wallpaper.*|Library.*|.*dialog.*)$
 }
 
 windowrule = match:initial_title ^(Open File|Volume Control|Save As.*)$, tag +beast_common_popups
