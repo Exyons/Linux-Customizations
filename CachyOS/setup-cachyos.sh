@@ -10,20 +10,35 @@ set -Eeuo pipefail
 # Colors & progress helpers
 # --------------------------------------------------------------------------
 if [ -t 1 ]; then
-    RED=$'\033[0;31m'; GREEN=$'\033[0;32m'; YELLOW=$'\033[1;33m'
-    BLUE=$'\033[0;34m'; BOLD=$'\033[1m'; RESET=$'\033[0m'
+  RED=$'\033[0;31m'
+  GREEN=$'\033[0;32m'
+  YELLOW=$'\033[1;33m'
+  BLUE=$'\033[0;34m'
+  BOLD=$'\033[1m'
+  RESET=$'\033[0m'
 else
-    RED=''; GREEN=''; YELLOW=''; BLUE=''; BOLD=''; RESET=''
+  RED=''
+  GREEN=''
+  YELLOW=''
+  BLUE=''
+  BOLD=''
+  RESET=''
 fi
 
-TOTAL_STEPS=18
+TOTAL_STEPS=19
 CURRENT_STEP=0
 
-step() { CURRENT_STEP=$((CURRENT_STEP + 1)); echo -e "\n${BLUE}${BOLD}[${CURRENT_STEP}/${TOTAL_STEPS}]${RESET} ${BOLD}$1${RESET}"; }
+step() {
+  CURRENT_STEP=$((CURRENT_STEP + 1))
+  echo -e "\n${BLUE}${BOLD}[${CURRENT_STEP}/${TOTAL_STEPS}]${RESET} ${BOLD}$1${RESET}"
+}
 info() { echo -e "  ${BLUE}→${RESET} $1"; }
-ok()   { echo -e "  ${GREEN}✓${RESET} $1"; }
+ok() { echo -e "  ${GREEN}✓${RESET} $1"; }
 warn() { echo -e "  ${YELLOW}!${RESET} $1"; }
-die()  { echo -e "\n${RED}${BOLD}✗ ERROR:${RESET} $1" >&2; exit 1; }
+die() {
+  echo -e "\n${RED}${BOLD}✗ ERROR:${RESET} $1" >&2
+  exit 1
+}
 
 trap 'die "Failed at line ${LINENO}: ${BASH_COMMAND}"' ERR
 
@@ -37,172 +52,172 @@ command -v sudo >/dev/null || die "sudo is not installed."
 # 1. Passwordless sudo
 # --------------------------------------------------------------------------
 setup_sudo() {
-    step "Configuring passwordless sudo for $USER"
-    echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/$USER" >/dev/null
-    sudo chmod 0440 "/etc/sudoers.d/$USER"
-    sudo visudo -cf "/etc/sudoers.d/$USER" >/dev/null || die "sudoers file failed validation — not applied"
-    ok "Passwordless sudo enabled and validated"
+  step "Configuring passwordless sudo for $USER"
+  echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee "/etc/sudoers.d/$USER" >/dev/null
+  sudo chmod 0440 "/etc/sudoers.d/$USER"
+  sudo visudo -cf "/etc/sudoers.d/$USER" >/dev/null || die "sudoers file failed validation — not applied"
+  ok "Passwordless sudo enabled and validated"
 }
 
 # --------------------------------------------------------------------------
 # 2. Chaotic-AUR repository (run before installing packages)
 # --------------------------------------------------------------------------
 setup_chaotic_aur() {
-    step "Setting up Chaotic-AUR repository"
+  step "Setting up Chaotic-AUR repository"
 
-    # Already configured? Skip so re-runs don't duplicate the repo block.
-    if grep -q '^\[chaotic-aur\]' /etc/pacman.conf; then
-        info "Chaotic-AUR already configured, skipping"
-        return 0
-    fi
+  # Already configured? Skip so re-runs don't duplicate the repo block.
+  if grep -q '^\[chaotic-aur\]' /etc/pacman.conf; then
+    info "Chaotic-AUR already configured, skipping"
+    return 0
+  fi
 
-    sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
-    sudo pacman-key --lsign-key 3056513887B78AEB
-    sudo pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
-    sudo pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
+  sudo pacman-key --recv-key 3056513887B78AEB --keyserver keyserver.ubuntu.com
+  sudo pacman-key --lsign-key 3056513887B78AEB
+  sudo pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
+  sudo pacman -U --noconfirm 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
 
-    # tee -a runs the write under sudo (plain >> would run as your user and be denied)
-    echo -e "\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" \
-        | sudo tee -a /etc/pacman.conf >/dev/null
-    sudo pacman -Syu --noconfirm
-    ok "Chaotic-AUR enabled"
+  # tee -a runs the write under sudo (plain >> would run as your user and be denied)
+  echo -e "\n[chaotic-aur]\nInclude = /etc/pacman.d/chaotic-mirrorlist" |
+    sudo tee -a /etc/pacman.conf >/dev/null
+  sudo pacman -Syu --noconfirm
+  ok "Chaotic-AUR enabled"
 }
 
 # --------------------------------------------------------------------------
 # 2. Official repo packages (pacman)
 # --------------------------------------------------------------------------
 install_packages() {
-    step "Installing official packages"
-    local packages=(
-        # Wayland desktop
-        niri dms-shell sddm cava dgop matugen
-        qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpeg
-        # Terminal & CLI tools
-        kitty uv brightnessctl neovim eza yazi starship zoxide viu expac
-        wl-clipboard ncdu htop btop nvtop tmux github-cli lazygit ollama
-        sbctl
-        # Fonts & theming
-        ttf-cascadia-code-nerd ttf-cascadia-mono-nerd inter-font nwg-look
-        # Apps
-        obsidian thunderbird nautilus visual-studio-code-bin
-        # Wine / gaming runtime libraries
-        wine-staging winetricks wine-mono vkd3d lib32-vkd3d
-        giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap
-        gnutls lib32-gnutls mpg123 lib32-mpg123 openal lib32-openal
-        v4l-utils lib32-v4l-utils libpulse lib32-libpulse
-        alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib
-        libjpeg-turbo lib32-libjpeg-turbo libxcomposite lib32-libxcomposite
-        libxinerama lib32-libxinerama ncurses lib32-ncurses
-        libxslt lib32-libxslt libva lib32-libva gtk3 lib32-gtk3
-        gst-plugins-base-libs
-        # Gaming apps
-        steam lutris mangohud lib32-mangohud goverlay gamemode lib32-gamemode gamescope
-        # System services
-        cups samba flatpak screen network-manager-applet udiskie udisks2
-        # Docker
-        docker docker-buildx docker-compose
-        # Extras
-        pokego-git bibata-cursor-theme bibata-rainbow-cursor-theme
-        upscayl-desktop-git nano-syntax-highlighting
-    )
-    sudo pacman -Syu --needed --noconfirm "${packages[@]}"
-    ok "Official packages installed"
+  step "Installing official packages"
+  local packages=(
+    # Wayland desktop
+    niri dms-shell sddm cava dgop matugen
+    qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpeg
+    # Terminal & CLI tools
+    kitty uv brightnessctl neovim eza yazi starship zoxide viu expac
+    wl-clipboard ncdu htop btop nvtop tmux github-cli lazygit ollama
+    sbctl
+    # Fonts & theming
+    ttf-cascadia-code-nerd ttf-cascadia-mono-nerd inter-font nwg-look
+    # Apps
+    obsidian thunderbird nautilus visual-studio-code-bin
+    # Wine / gaming runtime libraries
+    wine-staging winetricks wine-mono vkd3d lib32-vkd3d
+    giflib lib32-giflib libpng lib32-libpng libldap lib32-libldap
+    gnutls lib32-gnutls mpg123 lib32-mpg123 openal lib32-openal
+    v4l-utils lib32-v4l-utils libpulse lib32-libpulse
+    alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib
+    libjpeg-turbo lib32-libjpeg-turbo libxcomposite lib32-libxcomposite
+    libxinerama lib32-libxinerama ncurses lib32-ncurses
+    libxslt lib32-libxslt libva lib32-libva gtk3 lib32-gtk3
+    gst-plugins-base-libs
+    # Gaming apps
+    steam lutris mangohud lib32-mangohud goverlay gamemode lib32-gamemode gamescope
+    # System services
+    cups samba flatpak screen network-manager-applet udiskie udisks2
+    # Docker
+    docker docker-buildx docker-compose
+    # Extras
+    pokego-git bibata-cursor-theme bibata-rainbow-cursor-theme
+    upscayl-desktop-git nano-syntax-highlighting gnome-keyring
+  )
+  sudo pacman -Syu --needed --noconfirm "${packages[@]}"
+  ok "Official packages installed"
 }
 
 # --------------------------------------------------------------------------
 # 3. AUR packages (shelly)
 # --------------------------------------------------------------------------
 install_aur() {
-    step "Installing AUR packages"
-    shelly aur install \
-        colloid-gtk-theme-git adw-gtk-theme-git \
-        tela-circle-icon-theme-all-git ttf-apple-emoji \
-        || warn "One or more AUR packages failed to build"
-    ok "AUR packages processed"
+  step "Installing AUR packages"
+  shelly aur install \
+    colloid-gtk-theme-git adw-gtk-theme-git \
+    tela-circle-icon-theme-all-git ttf-apple-emoji ||
+    warn "One or more AUR packages failed to build"
+  ok "AUR packages processed"
 }
 
 # --------------------------------------------------------------------------
 # 4. Flatpaks (flathub is pre-configured on CachyOS)
 # --------------------------------------------------------------------------
 install_flatpaks() {
-    step "Installing Flatpaks"
-    sudo flatpak install -y flathub \
-        com.vysp3r.ProtonPlus \
-        io.missioncenter.MissionCenter \
-        me.iepure.devtoolbox \
-        io.github.kolunmi.Bazaar \
-        com.github.tchx84.Flatseal \
-        org.telegram.desktop \
-        com.obsproject.Studio \
-        org.gimp.GIMP \
-        org.localsend.localsend_app \
-        org.kde.filelight \
-        org.kde.gwenview \
-        io.github.peazip.PeaZip \
-        org.gnome.Totem \
-        com.github.zocker_160.SyncThingy \
-        org.gnome.Firmware \
-        app.zen_browser.zen \
-        || warn "One or more Flatpaks failed to install"
-    ok "Flatpaks processed"
+  step "Installing Flatpaks"
+  sudo flatpak install -y flathub \
+    com.vysp3r.ProtonPlus \
+    io.missioncenter.MissionCenter \
+    me.iepure.devtoolbox \
+    io.github.kolunmi.Bazaar \
+    com.github.tchx84.Flatseal \
+    org.telegram.desktop \
+    com.obsproject.Studio \
+    org.gimp.GIMP \
+    org.localsend.localsend_app \
+    org.kde.filelight \
+    org.kde.gwenview \
+    io.github.peazip.PeaZip \
+    org.gnome.Totem \
+    com.github.zocker_160.SyncThingy \
+    org.gnome.Firmware \
+    app.zen_browser.zen ||
+    warn "One or more Flatpaks failed to install"
+  ok "Flatpaks processed"
 }
 
 # --------------------------------------------------------------------------
 # 5. Node (nvm) + Bun
 # --------------------------------------------------------------------------
 install_runtimes() {
-    step "Installing Node (nvm) and Bun"
-    export NVM_DIR="$HOME/.nvm"
-    if [ ! -d "$NVM_DIR" ]; then
-        # PROFILE=/dev/null keeps the installer from touching our generated rc files
-        PROFILE=/dev/null bash -c 'curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash' \
-            || warn "nvm install failed"
-    fi
-    if [ -s "$NVM_DIR/nvm.sh" ]; then
-        set +u
-        # shellcheck disable=SC1091
-        . "$NVM_DIR/nvm.sh"
-        nvm install --lts && nvm alias default 'lts/*' && ok "Node LTS installed" || warn "Node install failed"
-        set -u
-    fi
-    if [ ! -d "$HOME/.bun" ]; then
-        curl -fsSL https://bun.sh/install | bash || warn "bun install failed"
-    fi
-    ok "Runtimes processed"
+  step "Installing Node (nvm) and Bun"
+  export NVM_DIR="$HOME/.nvm"
+  if [ ! -d "$NVM_DIR" ]; then
+    # PROFILE=/dev/null keeps the installer from touching our generated rc files
+    PROFILE=/dev/null bash -c 'curl -fsSL https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash' ||
+      warn "nvm install failed"
+  fi
+  if [ -s "$NVM_DIR/nvm.sh" ]; then
+    set +u
+    # shellcheck disable=SC1091
+    . "$NVM_DIR/nvm.sh"
+    nvm install --lts && nvm alias default 'lts/*' && ok "Node LTS installed" || warn "Node install failed"
+    set -u
+  fi
+  if [ ! -d "$HOME/.bun" ]; then
+    curl -fsSL https://bun.sh/install | bash || warn "bun install failed"
+  fi
+  ok "Runtimes processed"
 }
 
 # --------------------------------------------------------------------------
 # 6. SDDM astronaut theme + virtual keyboard
 # --------------------------------------------------------------------------
 setup_sddm() {
-    step "Configuring SDDM (astronaut theme)"
-    local theme_dir=/usr/share/sddm/themes/sddm-astronaut-theme
-    if [ ! -d "$theme_dir" ]; then
-        sudo git clone -b master --depth 1 \
-            https://github.com/keyitdev/sddm-astronaut-theme.git "$theme_dir"
-    else
-        info "Theme already present, skipping clone"
-    fi
-    sudo cp -r "$theme_dir"/Fonts/* /usr/share/fonts/
+  step "Configuring SDDM (astronaut theme)"
+  local theme_dir=/usr/share/sddm/themes/sddm-astronaut-theme
+  if [ ! -d "$theme_dir" ]; then
+    sudo git clone -b master --depth 1 \
+      https://github.com/keyitdev/sddm-astronaut-theme.git "$theme_dir"
+  else
+    info "Theme already present, skipping clone"
+  fi
+  sudo cp -r "$theme_dir"/Fonts/* /usr/share/fonts/
 
-    echo -e "[General]\nDisplayServer=wayland\n[Theme]\nCurrent=sddm-astronaut-theme" \
-        | sudo tee /etc/sddm.conf >/dev/null
-    sudo sed -i "s/astronaut.conf/pixel_sakura.conf/" "$theme_dir/metadata.desktop"
+  echo -e "[General]\nDisplayServer=wayland\n[Theme]\nCurrent=sddm-astronaut-theme" |
+    sudo tee /etc/sddm.conf >/dev/null
+  sudo sed -i "s/astronaut.conf/pixel_sakura.conf/" "$theme_dir/metadata.desktop"
 
-    sudo mkdir -p /etc/sddm.conf.d
-    echo -e "[General]\nInputMethod=qtvirtualkeyboard" \
-        | sudo tee /etc/sddm.conf.d/virtualkbd.conf >/dev/null
-    ok "SDDM configured"
+  sudo mkdir -p /etc/sddm.conf.d
+  echo -e "[General]\nInputMethod=qtvirtualkeyboard" |
+    sudo tee /etc/sddm.conf.d/virtualkbd.conf >/dev/null
+  ok "SDDM configured"
 }
 
 # --------------------------------------------------------------------------
 # 7. systemd services (backlight on resume + iGPU min clock + ollama)
 # --------------------------------------------------------------------------
 setup_services() {
-    step "Installing systemd services"
+  step "Installing systemd services"
 
-    info "Anti-flashbang: save/restore brightness across suspend"
-    sudo tee /etc/systemd/system/backlight-resume.service >/dev/null << 'EOF'
+  info "Anti-flashbang: save/restore brightness across suspend"
+  sudo tee /etc/systemd/system/backlight-resume.service >/dev/null <<'EOF'
 [Unit]
 Description=Save and Restore Brightness Across Suspend
 Before=sleep.target
@@ -222,8 +237,8 @@ ExecStop=/bin/bash -c "sleep 3 && /usr/bin/brightnessctl --restore"
 WantedBy=sleep.target
 EOF
 
-    info "Pin Intel iGPU minimum clock to its maximum"
-    sudo tee /etc/systemd/system/igpu-clock.service >/dev/null << 'EOF'
+  info "Pin Intel iGPU minimum clock to its maximum"
+  sudo tee /etc/systemd/system/igpu-clock.service >/dev/null <<'EOF'
 [Unit]
 Description=Set Intel iGPU minimum clock frequency
 
@@ -236,30 +251,30 @@ RemainAfterExit=yes
 WantedBy=multi-user.target
 EOF
 
-    sudo systemctl enable backlight-resume.service
-    sudo systemctl enable docker.service
-    sudo systemctl enable igpu-clock.service
-    sudo systemctl enable ollama.service || warn "Could not enable ollama.service"
-    ok "Services installed and enabled"
+  sudo systemctl enable backlight-resume.service
+  sudo systemctl enable docker.service
+  sudo systemctl enable igpu-clock.service
+  sudo systemctl enable ollama.service || warn "Could not enable ollama.service"
+  ok "Services installed and enabled"
 }
 
 # --------------------------------------------------------------------------
 # 8. Kitty terminal
 # --------------------------------------------------------------------------
 configure_kitty() {
-    step "Configuring Kitty (Dracula theme)"
-    local kitty_dir="$HOME/.config/kitty"
-    local themes_dir="$kitty_dir/kitty-themes"
-    mkdir -p "$kitty_dir"
+  step "Configuring Kitty (Dracula theme)"
+  local kitty_dir="$HOME/.config/kitty"
+  local themes_dir="$kitty_dir/kitty-themes"
+  mkdir -p "$kitty_dir"
 
-    if [ ! -d "$themes_dir" ]; then
-        git clone --depth 1 https://github.com/dexpota/kitty-themes.git "$themes_dir"
-    else
-        (cd "$themes_dir" && git pull --quiet) || warn "kitty-themes update failed"
-    fi
-    ln -sf "$themes_dir/themes/Dracula.conf" "$kitty_dir/theme.conf"
+  if [ ! -d "$themes_dir" ]; then
+    git clone --depth 1 https://github.com/dexpota/kitty-themes.git "$themes_dir"
+  else
+    (cd "$themes_dir" && git pull --quiet) || warn "kitty-themes update failed"
+  fi
+  ln -sf "$themes_dir/themes/Dracula.conf" "$kitty_dir/theme.conf"
 
-    cat << 'EOF' > "$kitty_dir/kitty.conf"
+  cat <<'EOF' >"$kitty_dir/kitty.conf"
 # ==========================================
 # FONTS & APPEARANCE
 # ==========================================
@@ -328,21 +343,21 @@ listen_on unix:/tmp/kitty-{kitty_pid}
 # ==========================================
 include theme.conf
 EOF
-    ok "Kitty configured"
+  ok "Kitty configured"
 }
 
 # --------------------------------------------------------------------------
 # 9. nano + vim
 # --------------------------------------------------------------------------
 configure_editors() {
-    step "Configuring nano and vim"
-    sudo tee /etc/nanorc >/dev/null << 'EOF'
+  step "Configuring nano and vim"
+  sudo tee /etc/nanorc >/dev/null <<'EOF'
 include "/usr/share/nano/*.nanorc"
 include "/usr/share/nano/extra/*.nanorc"
 include "/usr/share/nano-syntax-highlighting/*.nanorc"
 EOF
 
-    sudo tee /etc/vimrc >/dev/null << 'EOF'
+  sudo tee /etc/vimrc >/dev/null <<'EOF'
 " Syntax highlighting
 filetype plugin on
 syntax on
@@ -354,16 +369,16 @@ set incsearch
 " Highlight all matches while typing and after the search
 set hlsearch
 EOF
-    ok "nano and vim configured"
+  ok "nano and vim configured"
 }
 
 # --------------------------------------------------------------------------
 # 10. Starship
 # --------------------------------------------------------------------------
 configure_starship() {
-    step "Configuring Starship prompt"
-    mkdir -p "$HOME/.config"
-    cat << 'EOF' > "$HOME/.config/starship.toml"
+  step "Configuring Starship prompt"
+  mkdir -p "$HOME/.config"
+  cat <<'EOF' >"$HOME/.config/starship.toml"
 "$schema" = 'https://starship.rs/config-schema.json'
 
 add_newline = true
@@ -678,23 +693,23 @@ symbol = " "
 [character]
 success_symbol = "[➜](bold green)"
 EOF
-    ok "Starship configured"
+  ok "Starship configured"
 }
 
 # --------------------------------------------------------------------------
 # 11. Yazi
 # --------------------------------------------------------------------------
 configure_yazi() {
-    step "Configuring Yazi (Dracula flavor)"
-    mkdir -p "$HOME/.config/yazi"
-    ya pkg add yazi-rs/flavors:dracula || warn "yazi flavor install failed"
+  step "Configuring Yazi (Dracula flavor)"
+  mkdir -p "$HOME/.config/yazi"
+  ya pkg add yazi-rs/flavors:dracula || warn "yazi flavor install failed"
 
-    cat << 'EOF' > "$HOME/.config/yazi/theme.toml"
+  cat <<'EOF' >"$HOME/.config/yazi/theme.toml"
 [flavor]
 dark = "dracula"
 EOF
 
-    cat << 'EOF' > "$HOME/.config/yazi/yazi.toml"
+  cat <<'EOF' >"$HOME/.config/yazi/yazi.toml"
 [mgr]
 show_hidden = true
 
@@ -725,31 +740,31 @@ rules = [
   { mime = "text/*", use = "edit" }
 ]
 EOF
-    ok "Yazi configured"
+  ok "Yazi configured"
 }
 
 # --------------------------------------------------------------------------
 # 12. Neovim (LazyVim)
 # --------------------------------------------------------------------------
 configure_neovim() {
-    step "Bootstrapping LazyVim"
-    if [ -d "$HOME/.config/nvim" ]; then
-        rm -rf "$HOME/.config/nvim.bak"
-        mv "$HOME/.config/nvim" "$HOME/.config/nvim.bak"
-        info "Backed up existing config to ~/.config/nvim.bak"
-    fi
-    git clone https://github.com/LazyVim/starter "$HOME/.config/nvim"
-    rm -rf "$HOME/.config/nvim/.git"
-    ok "LazyVim installed"
+  step "Bootstrapping LazyVim"
+  if [ -d "$HOME/.config/nvim" ]; then
+    rm -rf "$HOME/.config/nvim.bak"
+    mv "$HOME/.config/nvim" "$HOME/.config/nvim.bak"
+    info "Backed up existing config to ~/.config/nvim.bak"
+  fi
+  git clone https://github.com/LazyVim/starter "$HOME/.config/nvim"
+  rm -rf "$HOME/.config/nvim/.git"
+  ok "LazyVim installed"
 }
 
 # --------------------------------------------------------------------------
 # 13. Zsh (zshenv, zshrc, npmrc)
 # --------------------------------------------------------------------------
 configure_zsh() {
-    step "Configuring Zsh, NVM PATH and npm"
+  step "Configuring Zsh, NVM PATH and npm"
 
-    cat << 'EOF' > "$HOME/.zshenv"
+  cat <<'EOF' >"$HOME/.zshenv"
 # ==========================================
 # NVM AI AGENT & NON-INTERACTIVE PATH FIX
 # ==========================================
@@ -761,12 +776,22 @@ if [ -f "$NVM_DIR/alias/default" ]; then
     DEFAULT_NODE_VER=$(cat "$NVM_DIR/alias/default")
     export PATH="$NVM_DIR/versions/node/$DEFAULT_NODE_VER/bin:$PATH"
 fi
+
+# ==========================================
+# SSH AGENT (gnome-keyring / gcr-ssh-agent)
+# ==========================================
+# Route ssh/git through the keyring-backed agent so key passphrases are cached and
+# auto-unlocked at login. The socket is created by the gcr-ssh-agent.socket user unit.
+# Guarded so an already-exported SSH_AUTH_SOCK (e.g. forwarded agent) wins.
+if [ -n "$XDG_RUNTIME_DIR" ]; then
+    export SSH_AUTH_SOCK="${SSH_AUTH_SOCK:-$XDG_RUNTIME_DIR/gcr/ssh}"
+fi
 EOF
 
-    # npm global prefix + matching PATH entry (added in .zshrc below)
-    echo "prefix=$HOME/.npm-global" > "$HOME/.npmrc"
+  # npm global prefix + matching PATH entry (added in .zshrc below)
+  echo "prefix=$HOME/.npm-global" >"$HOME/.npmrc"
 
-    cat << 'EOF' > "$HOME/.zshrc"
+  cat <<'EOF' >"$HOME/.zshrc"
 # ==========================================
 # Oh My Zsh Configuration
 # ==========================================
@@ -918,16 +943,16 @@ source /usr/share/fzf/key-bindings.zsh
 eval "$(starship init zsh)"
 eval "$(zoxide init zsh)"
 EOF
-    ok "Zsh configured"
+  ok "Zsh configured"
 }
 
 # --------------------------------------------------------------------------
 # 14. udiskie automount (user service)
 # --------------------------------------------------------------------------
 setup_udiskie() {
-    step "Setting up udiskie automount"
-    mkdir -p "$HOME/.config/systemd/user"
-    cat << 'EOF' > "$HOME/.config/systemd/user/udiskie.service"
+  step "Setting up udiskie automount"
+  mkdir -p "$HOME/.config/systemd/user"
+  cat <<'EOF' >"$HOME/.config/systemd/user/udiskie.service"
 [Unit]
 Description=udiskie removable media automounter
 PartOf=graphical-session.target
@@ -941,57 +966,106 @@ Restart=on-failure
 [Install]
 WantedBy=default.target
 EOF
-    systemctl --user enable udiskie.service || warn "Could not enable udiskie (start your graphical session first)"
-    ok "udiskie automount configured"
+  systemctl --user enable udiskie.service || warn "Could not enable udiskie (start your graphical session first)"
+  ok "udiskie automount configured"
 }
 
 # --------------------------------------------------------------------------
 # 15. Secure Boot (sbctl) — own keys, optional Microsoft keys, sign binaries
 # --------------------------------------------------------------------------
 secure_boot() {
-    step "Setting up Secure Boot (sbctl)"
+  step "Setting up Secure Boot (sbctl)"
 
-    # Enrolling keys touches firmware NVRAM and requires the UEFI to be in
-    # Setup Mode — it is hard to reverse, so confirm before proceeding.
-    read -rp "  Set up Secure Boot keys now? Requires UEFI Setup Mode. [y/N] " ans || ans=""
-    if [[ ! "$ans" =~ ^[Yy]$ ]]; then
-        info "Skipping Secure Boot setup. Run later once firmware is in Setup Mode."
-        return 0
-    fi
+  # Enrolling keys touches firmware NVRAM and requires the UEFI to be in
+  # Setup Mode — it is hard to reverse, so confirm before proceeding.
+  read -rp "  Set up Secure Boot keys now? Requires UEFI Setup Mode. [y/N] " ans || ans=""
+  if [[ ! "$ans" =~ ^[Yy]$ ]]; then
+    info "Skipping Secure Boot setup. Run later once firmware is in Setup Mode."
+    return 0
+  fi
 
-    sudo sbctl status || true
+  sudo sbctl status || true
 
-    if ! sudo sbctl status 2>/dev/null | grep -qi "setup mode.*enabled"; then
-        warn "Firmware is not in Setup Mode — cannot enroll keys. Clear Secure Boot keys in UEFI and re-run."
-        return 0
-    fi
+  if ! sudo sbctl status 2>/dev/null | grep -qi "setup mode.*enabled"; then
+    warn "Firmware is not in Setup Mode — cannot enroll keys. Clear Secure Boot keys in UEFI and re-run."
+    return 0
+  fi
 
-    sudo sbctl create-keys || { warn "sbctl create-keys failed"; return 0; }
-    # -m also enrolls Microsoft's keys (needed for most firmware / option ROMs)
-    sudo sbctl enroll-keys -m || { warn "sbctl enroll-keys failed"; return 0; }
+  sudo sbctl create-keys || {
+    warn "sbctl create-keys failed"
+    return 0
+  }
+  # -m also enrolls Microsoft's keys (needed for most firmware / option ROMs)
+  sudo sbctl enroll-keys -m || {
+    warn "sbctl enroll-keys failed"
+    return 0
+  }
 
-    # Sign every binary sbctl reports as unsigned (bootloader, kernels, etc.)
-    sudo sbctl verify 2>/dev/null \
-        | grep 'is not signed' \
-        | sed -E 's|^.* (/.+) is not signed$|\1|' \
-        | while read -r efi; do
-            sudo sbctl sign -s "$efi" || warn "Failed to sign $efi"
-        done
+  # Sign every binary sbctl reports as unsigned (bootloader, kernels, etc.)
+  sudo sbctl verify 2>/dev/null |
+    grep 'is not signed' |
+    sed -E 's|^.* (/.+) is not signed$|\1|' |
+    while read -r efi; do
+      sudo sbctl sign -s "$efi" || warn "Failed to sign $efi"
+    done
 
-    # Signing just changed the kernel bytes on the ESP, so the BLAKE2b hashes in
-    # limine.conf are now stale. Re-sync them immediately so THIS install stays
-    # bootable; future kernel updates are handled automatically by the pacman hook.
-    if [ -x /usr/local/bin/limine-sbctl-rehash ]; then
-        info "Re-syncing limine.conf BLAKE2b hashes for the freshly signed kernels"
-        sudo /usr/local/bin/limine-sbctl-rehash \
-            || warn "limine hash re-sync failed — run 'sudo limine-sbctl-rehash' before rebooting"
-    fi
+  # Signing just changed the kernel bytes on the ESP, so the BLAKE2b hashes in
+  # limine.conf are now stale. Re-sync them immediately so THIS install stays
+  # bootable; future kernel updates are handled automatically by the pacman hook.
+  if [ -x /usr/local/bin/limine-sbctl-rehash ]; then
+    info "Re-syncing limine.conf BLAKE2b hashes for the freshly signed kernels"
+    sudo /usr/local/bin/limine-sbctl-rehash ||
+      warn "limine hash re-sync failed — run 'sudo limine-sbctl-rehash' before rebooting"
+  fi
 
-    ok "Secure Boot keys enrolled and binaries signed (enable Secure Boot in UEFI after reboot)"
+  ok "Secure Boot keys enrolled and binaries signed (enable Secure Boot in UEFI after reboot)"
 }
 
 # --------------------------------------------------------------------------
-# 16. Limine ⇄ sbctl: keep BLAKE2b boot hashes in sync after signing
+# 16. gnome-keyring (secrets store + SSH agent)
+# --------------------------------------------------------------------------
+# The gnome-keyring package only ships the daemon — it does nothing until PAM unlocks
+# it at login and the SSH-agent socket is enabled. This:
+#   * inserts pam_gnome_keyring into the SDDM PAM stack so the login password unlocks
+#     the keyring, making secrets available to libsecret apps (gh, Thunderbird, …);
+#   * enables gcr-ssh-agent so the keyring also acts as the SSH agent, caching key
+#     passphrases. SSH_AUTH_SOCK is set in environment.d (GUI apps) and .zshenv (shells).
+setup_gnome_keyring() {
+    step "Configuring gnome-keyring (PAM auto-unlock + SSH agent)"
+
+    # 1. PAM — unlock the keyring with the SDDM login password. Insert each module
+    #    right after the matching 'include system-login' line (recommended placement).
+    #    Idempotent: skip entirely if pam_gnome_keyring is already wired in.
+    if grep -q 'pam_gnome_keyring' /etc/pam.d/sddm; then
+        info "pam_gnome_keyring already present in /etc/pam.d/sddm, skipping"
+    else
+        sudo sed -i \
+            -e '/^auth[[:space:]]\+include[[:space:]]\+system-login/a -auth       optional    pam_gnome_keyring.so' \
+            -e '/^password[[:space:]]\+include[[:space:]]\+system-login/a -password   optional    pam_gnome_keyring.so    use_authtok' \
+            -e '/^session[[:space:]]\+include[[:space:]]\+system-login/a -session    optional    pam_gnome_keyring.so    auto_start' \
+            /etc/pam.d/sddm
+        grep -q 'pam_gnome_keyring' /etc/pam.d/sddm \
+            && ok "pam_gnome_keyring wired into /etc/pam.d/sddm" \
+            || warn "Could not insert pam_gnome_keyring lines — edit /etc/pam.d/sddm manually"
+    fi
+
+    # 2. SSH agent — gcr-ssh-agent (from gcr-4) replaces gnome-keyring's removed ssh
+    #    component. Enabling the socket socket-activates the service and creates the
+    #    agent socket at $XDG_RUNTIME_DIR/gcr/ssh on login.
+    systemctl --user enable gcr-ssh-agent.socket \
+        || warn "Could not enable gcr-ssh-agent.socket (start your graphical session first)"
+
+    # Point GUI apps (systemd user session) at the agent. Shells are handled in .zshenv.
+    mkdir -p "$HOME/.config/environment.d"
+    cat << 'EOF' > "$HOME/.config/environment.d/gcr-ssh-agent.conf"
+# Route SSH through gnome-keyring's gcr-ssh-agent (socket from gcr-ssh-agent.socket)
+SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/gcr/ssh
+EOF
+    ok "gnome-keyring SSH agent enabled (SSH_AUTH_SOCK → \$XDG_RUNTIME_DIR/gcr/ssh)"
+}
+
+# --------------------------------------------------------------------------
+# 17. Limine ⇄ sbctl: keep BLAKE2b boot hashes in sync after signing
 # --------------------------------------------------------------------------
 # Limine verifies every kernel/initramfs on the ESP against a BLAKE2b hash stored in
 # limine.conf (ENABLE_VERIFICATION=yes). limine-mkinitcpio-hook records those hashes
@@ -1003,9 +1077,9 @@ secure_boot() {
 # and rewrites it to match the file's current (signed) content, plus a pacman hook
 # whose filename sorts AFTER zz-sbctl.hook so it runs last on every transaction.
 setup_limine_sbctl_rehash() {
-    step "Installing Limine BLAKE2b re-hash hook (runs after sbctl signing)"
+  step "Installing Limine BLAKE2b re-hash hook (runs after sbctl signing)"
 
-    sudo tee /usr/local/bin/limine-sbctl-rehash >/dev/null << 'SCRIPT'
+  sudo tee /usr/local/bin/limine-sbctl-rehash >/dev/null <<'SCRIPT'
 #!/usr/bin/env bash
 # limine-sbctl-rehash — re-sync limine.conf BLAKE2b hashes after sbctl signing.
 #
@@ -1089,10 +1163,10 @@ if [[ "${ENABLE_ENROLL_LIMINE_CONFIG:-}" == "yes" ]] && command -v limine-enroll
 	limine-enroll-config || log "WARNING: limine-enroll-config failed — re-run it before rebooting"
 fi
 SCRIPT
-    sudo chmod 0755 /usr/local/bin/limine-sbctl-rehash
+  sudo chmod 0755 /usr/local/bin/limine-sbctl-rehash
 
-    sudo mkdir -p /etc/pacman.d/hooks
-    sudo tee /etc/pacman.d/hooks/zzz-limine-sbctl-rehash.hook >/dev/null << 'HOOK'
+  sudo mkdir -p /etc/pacman.d/hooks
+  sudo tee /etc/pacman.d/hooks/zzz-limine-sbctl-rehash.hook >/dev/null <<'HOOK'
 # Re-sync limine.conf BLAKE2b hashes AFTER sbctl signs the kernels.
 # The filename sorts after zz-sbctl.hook, so this PostTransaction hook runs last —
 # once the kernel EFI stubs already carry their Secure Boot signatures. Triggers
@@ -1116,52 +1190,53 @@ When = PostTransaction
 Depends = sbctl
 Exec = /usr/local/bin/limine-sbctl-rehash
 HOOK
-    ok "Limine re-hash hook installed (zzz-limine-sbctl-rehash.hook runs after zz-sbctl.hook)"
+  ok "Limine re-hash hook installed (zzz-limine-sbctl-rehash.hook runs after zz-sbctl.hook)"
 }
 
 # --------------------------------------------------------------------------
-# 17. Finalize: default shell, user service, reboot
+# 18. Finalize: default shell, user service, reboot
 # --------------------------------------------------------------------------
 finalize() {
-    step "Finalizing"
-    sudo chsh -s "$(which zsh)" "$(whoami)"
-    sudo systemctl enable sddm
-    systemctl --user enable dms || warn "Could not enable user dms service"
-    ok "Default shell set to zsh; SDDM and dms enabled"
+  step "Finalizing"
+  sudo chsh -s "$(which zsh)" "$(whoami)"
+  sudo systemctl enable sddm
+  systemctl --user enable dms || warn "Could not enable user dms service"
+  ok "Default shell set to zsh; SDDM and dms enabled"
 
-    echo -e "\n${GREEN}${BOLD}Setup complete!${RESET}"
-    echo -e "${YELLOW}A reboot is required to apply the display manager, shell and services.${RESET}"
-    read -rp "Reboot now? [y/N] " ans || ans=""
-    if [[ "$ans" =~ ^[Yy]$ ]]; then
-        sudo reboot
-    else
-        info "Reboot skipped. Run 'sudo reboot' when ready."
-    fi
+  echo -e "\n${GREEN}${BOLD}Setup complete!${RESET}"
+  echo -e "${YELLOW}A reboot is required to apply the display manager, shell and services.${RESET}"
+  read -rp "Reboot now? [y/N] " ans || ans=""
+  if [[ "$ans" =~ ^[Yy]$ ]]; then
+    sudo reboot
+  else
+    info "Reboot skipped. Run 'sudo reboot' when ready."
+  fi
 }
 
 # --------------------------------------------------------------------------
 # Main
 # --------------------------------------------------------------------------
 main() {
-    echo -e "${BOLD}${BLUE}=== CachyOS personal setup ===${RESET}"
-    setup_sudo
-    setup_chaotic_aur
-    install_packages
-    install_aur
-    install_flatpaks
-    install_runtimes
-    setup_sddm
-    setup_services
-    configure_kitty
-    configure_editors
-    configure_starship
-    configure_yazi
-    configure_neovim
-    configure_zsh
-    setup_udiskie
-    setup_limine_sbctl_rehash
-    secure_boot
-    finalize
+  echo -e "${BOLD}${BLUE}=== CachyOS personal setup ===${RESET}"
+  setup_sudo
+  setup_chaotic_aur
+  install_packages
+  install_aur
+  install_flatpaks
+  install_runtimes
+  setup_sddm
+  setup_services
+  configure_kitty
+  configure_editors
+  configure_starship
+  configure_yazi
+  configure_neovim
+  configure_zsh
+  setup_udiskie
+  setup_gnome_keyring
+  setup_limine_sbctl_rehash
+  secure_boot
+  finalize
 }
 
 main "$@"
