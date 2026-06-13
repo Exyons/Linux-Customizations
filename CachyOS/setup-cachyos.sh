@@ -1049,6 +1049,29 @@ setup_gnome_keyring() {
             || warn "Could not insert pam_gnome_keyring lines — edit /etc/pam.d/sddm manually"
     fi
 
+    # 1a. Keep the keyring password in sync with your user password. use_authtok reuses
+    #     the new password pam_unix just set during `passwd`, re-encrypting the login
+    #     keyring so it stays auto-unlockable afterwards. Idempotent.
+    if grep -q 'pam_gnome_keyring' /etc/pam.d/passwd; then
+        info "pam_gnome_keyring already present in /etc/pam.d/passwd, skipping"
+    else
+        sudo sed -i '/^password[[:space:]]\+include[[:space:]]\+system-auth/a password    optional    pam_gnome_keyring.so    use_authtok' /etc/pam.d/passwd
+        grep -q 'pam_gnome_keyring' /etc/pam.d/passwd \
+            && ok "pam_gnome_keyring wired into /etc/pam.d/passwd (keyring follows passwd changes)" \
+            || warn "Could not insert pam_gnome_keyring into /etc/pam.d/passwd"
+    fi
+
+    # 1b. Let PAM's keyring daemon own the Secret Service. gnome-keyring-daemon.socket
+    #     is enabled by a global preset and socket-activates a *passwordless* daemon at
+    #     sockets.target — it grabs org.freedesktop.secrets before pam_gnome_keyring's
+    #     auto_start daemon can, so the login keyring never gets unlocked on the bus and
+    #     apps like VS Code fail with "OS keyring not available" (writes hang on a prompt
+    #     that can't display under a minimal Wayland WM). Mask it in user scope so the
+    #     PAM-started, password-holding daemon is authoritative. Reversible with:
+    #     systemctl --user unmask gnome-keyring-daemon.socket
+    systemctl --user mask gnome-keyring-daemon.socket \
+        || warn "Could not mask gnome-keyring-daemon.socket"
+
     # 2. SSH agent — gcr-ssh-agent (from gcr-4) replaces gnome-keyring's removed ssh
     #    component. Enabling the socket socket-activates the service and creates the
     #    agent socket at $XDG_RUNTIME_DIR/gcr/ssh on login.
