@@ -94,7 +94,7 @@ install_packages() {
     qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpeg
     # Terminal & CLI tools
     kitty uv brightnessctl neovim eza yazi starship zoxide viu expac
-    wl-clipboard ncdu htop btop nvtop tmux github-cli lazygit ollama
+    wl-clipboard ncdu htop btop nvtop tmux github-cli lazygit ollama yay
     sbctl
     # Fonts & theming
     ttf-cascadia-code-nerd ttf-cascadia-mono-nerd inter-font nwg-look
@@ -125,11 +125,13 @@ install_packages() {
 }
 
 # --------------------------------------------------------------------------
-# 3. AUR packages (shelly)
+# 3. AUR packages (yay)
 # --------------------------------------------------------------------------
+# Run as the normal user — yay calls sudo itself and refuses to run as root.
+# --needed skips already-installed pkgs; --noconfirm keeps it non-interactive.
 install_aur() {
   step "Installing AUR packages"
-  shelly aur install \
+  yay -S --needed --noconfirm \
     colloid-gtk-theme-git adw-gtk-theme-git \
     tela-circle-icon-theme-all-git ttf-apple-emoji ||
     warn "One or more AUR packages failed to build"
@@ -869,8 +871,8 @@ alias tb="nc termbin.com 9999"
 
 # Package management (Arch / CachyOS)
 alias update="sudo pacman -Syu"          # update official packages
-alias in="sudo shelly install"           # install package(s)
-alias inaur="sudo shelly aur install"    # install AUR package(s)
+alias in="sudo pacman -S"                # install repo package(s)
+alias inaur="yay -S"                      # install AUR package(s) (yay calls sudo itself)
 alias rmpkg="sudo pacman -Rns"           # remove package + deps
 alias search="pacman -Ss"                # search repos
 alias cleanch="sudo pacman -Scc"         # clear package cache
