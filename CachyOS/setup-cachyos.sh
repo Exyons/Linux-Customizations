@@ -25,7 +25,7 @@ else
   RESET=''
 fi
 
-TOTAL_STEPS=19
+TOTAL_STEPS=20
 CURRENT_STEP=0
 
 step() {
@@ -90,7 +90,7 @@ install_packages() {
   step "Installing official packages"
   local packages=(
     # Wayland desktop
-    niri dms-shell sddm cava dgop matugen
+    niri dms-shell sddm cava dgop matugen fuzzel
     qt6-svg qt6-virtualkeyboard qt6-multimedia-ffmpeg
     # Terminal & CLI tools
     kitty uv brightnessctl neovim eza yazi starship zoxide viu expac
@@ -346,6 +346,41 @@ listen_on unix:/tmp/kitty-{kitty_pid}
 include theme.conf
 EOF
   ok "Kitty configured"
+}
+
+# --------------------------------------------------------------------------
+# 8a. Fuzzel (Wayland app launcher, Dracula theme)
+# --------------------------------------------------------------------------
+configure_fuzzel() {
+  step "Configuring Fuzzel (Dracula theme)"
+  mkdir -p "$HOME/.config/fuzzel"
+  cat << 'EOF' > "$HOME/.config/fuzzel/fuzzel.ini"
+[main]
+font=SegoeUI Variable:size=13
+layer=overlay
+terminal=kitty
+lines=10
+width=43
+horizontal-pad=10
+vertical-pad=10
+inner-pad=10
+show-actions=no
+image-size-ratio=0.5
+
+[border]
+width=2
+radius=10
+
+[colors]
+background=282a36fa
+text=f8f8f2ff
+match=8be9fdff
+selection-match=8be9fdff
+selection=44475add
+selection-text=f8f8f2ff
+border=bd93f9ff
+EOF
+  ok "Fuzzel configured"
 }
 
 # --------------------------------------------------------------------------
@@ -1252,6 +1287,7 @@ main() {
   setup_sddm
   setup_services
   configure_kitty
+  configure_fuzzel
   configure_editors
   configure_starship
   configure_yazi
