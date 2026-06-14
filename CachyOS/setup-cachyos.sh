@@ -25,7 +25,7 @@ else
   RESET=''
 fi
 
-TOTAL_STEPS=20
+TOTAL_STEPS=21
 CURRENT_STEP=0
 
 step() {
@@ -382,6 +382,265 @@ border=bd93f9ff
 EOF
   ok "Fuzzel configured"
 }
+
+# --------------------------------------------------------------------------
+# 8b. Niri (modular config: rainbow borders, springy animations, rules, binds)
+# --------------------------------------------------------------------------
+# niri reads a single config.kdl but supports `include`, so customisations live in
+# ~/.config/niri/custom/*.kdl, kept separate from the DMS-managed ~/.config/niri/dms/.
+# On a fresh install niri hasn't written config.kdl yet, so it is bootstrapped from
+# niri's shipped default. niri won't overwrite an existing config on first launch, and
+# DMS appends its own dms/* includes when the session starts. The custom includes go
+# LAST so they win niri's last-wins merge (border on, focus-ring off, rainbow, etc.).
+configure_niri() {
+  step "Configuring niri (rainbow borders, springy animations, rules, binds)"
+  local niri_dir="$HOME/.config/niri"
+  mkdir -p "$niri_dir/custom"
+
+  cat << 'APPEARANCE_KDL' > "$niri_dir/custom/appearance.kdl"
+// =============================================================================
+// Appearance — rainbow window borders
+// Managed by setup-cachyos.sh. Included AFTER dms/* so it wins over DMS theming.
+// =============================================================================
+//
+// niri gradients are 2-stop (from -> to). Setting in="oklch longer hue" makes the
+// hue sweep the LONG way around the colour wheel, so a purple -> blue gradient
+// passes through magenta, red, orange, yellow, green and cyan: a full rainbow that
+// hits the requested colours (purple #c77dff, yellow #ffe66d, green #7dffb3,
+// blue #6ec1ff). angle 35 tilts the sweep. Drop relative-to for a full rainbow on
+// every window; add relative-to="workspace-view" for one rainbow across the screen.
+layout {
+    // Only the border should show the rainbow, so keep the focus-ring off.
+    focus-ring {
+        off
+    }
+
+    border {
+        on
+        width 3
+
+        active-gradient from="#c77dffee" to="#6ec1ffee" angle=35 in="oklch longer hue"
+
+        inactive-color "#45475a"
+        urgent-color "#f38ba8"
+    }
+}
+APPEARANCE_KDL
+
+  cat << 'ANIMATIONS_KDL' > "$niri_dir/custom/animations.kdl"
+// =============================================================================
+// Animations — SPRINGY. Managed by setup-cachyos.sh.
+//
+// niri's defaults are critically damped (damping-ratio=1.0) → smooth but NO bounce.
+// The springiness comes from UNDERDAMPING: damping-ratio < 1.0 overshoots and
+// settles back, giving that bouncy feel. ~0.6 = clearly bouncy but still smooth.
+// Lower damping = more bounce; lower stiffness = slower/looser; higher = snappier.
+// =============================================================================
+animations {
+    slowdown 1.0
+
+    // Column scrolling left/right — the signature niri motion. Make it bounce.
+    horizontal-view-movement {
+        spring damping-ratio=0.6 stiffness=500 epsilon=0.0001
+    }
+
+    // Switching workspaces up/down.
+    workspace-switch {
+        spring damping-ratio=0.6 stiffness=550 epsilon=0.0001
+    }
+
+    // Moving windows/columns around.
+    window-movement {
+        spring damping-ratio=0.62 stiffness=550 epsilon=0.0001
+    }
+
+    // Resizing — a touch more damped so it doesn't wobble too hard.
+    window-resize {
+        spring damping-ratio=0.72 stiffness=650 epsilon=0.0001
+    }
+
+    // Windows pop in with a springy overshoot.
+    window-open {
+        spring damping-ratio=0.6 stiffness=500 epsilon=0.0001
+    }
+
+    // Close stays quick and clean (no bounce on disappearing windows).
+    window-close {
+        duration-ms 150
+        curve "ease-out-quad"
+    }
+
+    // Overview open/close bounce.
+    overview-open-close {
+        spring damping-ratio=0.68 stiffness=600 epsilon=0.0001
+    }
+
+    // The "config reloaded" toast — extra bouncy, it's fun to see.
+    config-notification-open-close {
+        spring damping-ratio=0.5 stiffness=700 epsilon=0.0005
+    }
+
+    screenshot-ui-open {
+        duration-ms 200
+        curve "ease-out-quad"
+    }
+}
+ANIMATIONS_KDL
+
+  cat << 'WINDOWRULES_KDL' > "$niri_dir/custom/window-rules.kdl"
+// =============================================================================
+// Window rules — translated from Hyprland windowrules. Managed by setup-cachyos.sh.
+//
+// Notes on the translation:
+//  * Hyprland "class" -> niri "app-id"; "title" -> niri "title" (Rust regex).
+//  * float yes        -> open-floating true
+//  * size W H         -> default-column-width{ fixed W } + default-window-height{ fixed H }
+//  * center true      -> niri opens floating windows centred by default, so it is
+//                        implicit (there is no per-rule "center").
+//  * Hyprland "tags"  -> niri has no tags, so tagged groups are flattened into
+//                        direct matches with their final action.
+//  * idle_inhibit rules are intentionally omitted: niri honours the Wayland
+//    idle-inhibit protocol, which media players/browsers use themselves.
+// =============================================================================
+
+// --- Sized floating dialogs ---------------------------------------------------
+
+// SyncThingy -> float, 800x600
+window-rule {
+    match app-id=r#"(?i)syncthingy"#
+    open-floating true
+    default-column-width { fixed 800; }
+    default-window-height { fixed 600; }
+}
+
+// Totem -> float, 1000x600
+window-rule {
+    match app-id=r#"^org\.gnome\.Totem$"#
+    open-floating true
+    default-column-width { fixed 1000; }
+    default-window-height { fixed 600; }
+}
+
+// --- Plain floating dialogs ---------------------------------------------------
+
+// Steam "Special Offers" / "Friends List"
+window-rule {
+    match app-id=r#"^steam$"# title=r#"^(Special Offers|Friends List)$"#
+    open-floating true
+}
+
+// Gwenview
+window-rule {
+    match app-id=r#"^org\.kde\.gwenview$"#
+    open-floating true
+}
+
+// Lutris install/configure dialogs
+window-rule {
+    match app-id=r#"^net\.lutris\.Lutris$"# title=r#"^Install"#
+    match app-id=r#"^net\.lutris\.Lutris$"# title=r#"^Configure"#
+    open-floating true
+}
+
+// --- "beast" floating apps (control panels, tray apps, polkit agents, etc.) ---
+window-rule {
+    match app-id=r#"^(blueman-manager|pavucontrol-qt|com\.gabm\.satty|vlc|kvantummanager|qt[56]ct|nwg-(look|displays)|org\.kde\.ark|org\.pulseaudio\.pavucontrol|nm-(applet|connection-editor)|org\.kde\.polkit-kde-authentication-agent-1|console-dropdown)$"#
+    open-floating true
+}
+
+// Dolphin progress / copy popups
+window-rule {
+    match app-id=r#"^org\.kde\.dolphin$"# title=r#"^(Progress Dialog|Copying) — Dolphin$"#
+    open-floating true
+}
+
+// --- Common popups (by title) and portal/file dialogs -------------------------
+// Broad on purpose (mirrors the Hyprland config): anything that looks like a
+// dialog/settings/save/open window floats.
+window-rule {
+    match title=r#"^(New.*|.*[Ss]ettings.*|[Ww]elcome.*|.*Preferences.*|Choose Files|Save As|Confirm to replace files|File Operation Progress|Open|Authentication Required|Add Folder to Workspace|File Upload.*|Choose wallpaper.*|Library.*|.*dialog.*)$"#
+    match title=r#"^(Open File|Volume Control|Save As.*)$"#
+    match app-id=r#"^(.*dialog.*|[Xx]dg-desktop-portal-gtk)$"#
+    match app-id=r#"^(org\.freedesktop\.impl\.portal\.desktop\.(hyprland|gtk)|[Xx]dg-desktop-portal-gtk)$"#
+    open-floating true
+}
+
+// --- Picture-in-Picture: float, small, parked bottom-right --------------------
+window-rule {
+    match title=r#"(?i)^picture[-\s]?in[-\s]?picture"#
+    open-floating true
+    default-column-width { proportion 0.25; }
+    default-window-height { proportion 0.25; }
+    default-floating-position x=32 y=32 relative-to="bottom-right"
+}
+
+// --- Apps that should always float --------------------------------------------
+window-rule {
+    match app-id=r#"^Signal$"#
+    match app-id=r#"^com\.github\.rafostar\.Clapper$"#
+    match app-id=r#"^app\.drey\.Warp$"#
+    match app-id=r#"^net\.davidotek\.pupgui2$"#
+    match app-id=r#"^yad$"#
+    match app-id=r#"^eog$"#
+    match app-id=r#"^io\.github\.alainm23\.planify$"#
+    match app-id=r#"^io\.gitlab\.theevilskeleton\.Upscaler$"#
+    match app-id=r#"^com\.github\.unrud\.VideoDownloader$"#
+    match app-id=r#"^io\.gitlab\.adhami3310\.Impression$"#
+    match app-id=r#"^io\.missioncenter\.MissionCenter$"#
+    open-floating true
+}
+WINDOWRULES_KDL
+
+  cat << 'BINDS_KDL' > "$niri_dir/custom/binds.kdl"
+// =============================================================================
+// Custom keybinds — multi-monitor / projector. Managed by setup-cachyos.sh.
+// niri merges this binds{} block with the others; later definitions win, so the
+// projector binds below override the defaults on the same keys.
+// =============================================================================
+binds {
+    // Teleport the current workspace to the external projector, and back.
+    Mod+Shift+P hotkey-overlay-title="Send workspace to projector (HDMI-A-1)" { move-workspace-to-monitor "HDMI-A-1"; }
+    Mod+Shift+O hotkey-overlay-title="Send workspace to laptop (eDP-1)" { move-workspace-to-monitor "eDP-1"; }
+
+    // Turn the laptop panel OFF (projector-only), and back ON.
+    Mod+F7       hotkey-overlay-title="Laptop screen OFF (projector only)" { spawn "niri" "msg" "output" "eDP-1" "off"; }
+    Mod+Shift+F7 hotkey-overlay-title="Laptop screen ON" { spawn "niri" "msg" "output" "eDP-1" "on"; }
+
+    // Mod+Shift+P used to power off all monitors; moved here since it now sends the
+    // workspace to the projector.
+    Mod+Ctrl+Shift+P { power-off-monitors; }
+}
+BINDS_KDL
+
+  # Bootstrap config.kdl from niri's default if it does not exist yet (fresh install).
+  if [ ! -f "$niri_dir/config.kdl" ]; then
+    if [ -f /usr/share/doc/niri/default-config.kdl ]; then
+      cp /usr/share/doc/niri/default-config.kdl "$niri_dir/config.kdl"
+      info "Bootstrapped config.kdl from niri default"
+    else
+      : > "$niri_dir/config.kdl"
+    fi
+  fi
+
+  # Include the custom modules (last, so they win) -- idempotent.
+  if ! grep -q 'custom/appearance.kdl' "$niri_dir/config.kdl"; then
+    cat << 'NIRI_INCLUDES' >> "$niri_dir/config.kdl"
+
+// --- Custom modules (managed by setup-cachyos.sh) -- included last so they win ---
+include "custom/appearance.kdl"
+include "custom/animations.kdl"
+include "custom/window-rules.kdl"
+include "custom/binds.kdl"
+NIRI_INCLUDES
+  fi
+
+  if niri validate -c "$niri_dir/config.kdl" >/dev/null 2>&1; then
+    ok "niri configured (config valid)"
+  else
+    warn "niri config written but validation reported issues -- check $niri_dir/config.kdl"
+  fi
+}
+
 
 # --------------------------------------------------------------------------
 # 9. nano + vim
@@ -1288,6 +1547,7 @@ main() {
   setup_services
   configure_kitty
   configure_fuzzel
+  configure_niri
   configure_editors
   configure_starship
   configure_yazi
