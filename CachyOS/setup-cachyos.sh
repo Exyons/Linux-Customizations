@@ -354,7 +354,7 @@ EOF
 configure_fuzzel() {
   step "Configuring Fuzzel (Dracula theme)"
   mkdir -p "$HOME/.config/fuzzel"
-  cat << 'EOF' > "$HOME/.config/fuzzel/fuzzel.ini"
+  cat <<'EOF' >"$HOME/.config/fuzzel/fuzzel.ini"
 [main]
 font=SegoeUI Variable:size=13
 layer=overlay
@@ -397,7 +397,7 @@ configure_niri() {
   local niri_dir="$HOME/.config/niri"
   mkdir -p "$niri_dir/custom"
 
-  cat << 'APPEARANCE_KDL' > "$niri_dir/custom/appearance.kdl"
+  cat <<'APPEARANCE_KDL' >"$niri_dir/custom/appearance.kdl"
 // =============================================================================
 // Appearance — rainbow window borders
 // Managed by setup-cachyos.sh. Included AFTER dms/* so it wins over DMS theming.
@@ -427,7 +427,7 @@ layout {
 }
 APPEARANCE_KDL
 
-  cat << 'ANIMATIONS_KDL' > "$niri_dir/custom/animations.kdl"
+  cat <<'ANIMATIONS_KDL' >"$niri_dir/custom/animations.kdl"
 // =============================================================================
 // Animations — SPRINGY. Managed by setup-cachyos.sh.
 //
@@ -487,7 +487,7 @@ animations {
 }
 ANIMATIONS_KDL
 
-  cat << 'WINDOWRULES_KDL' > "$niri_dir/custom/window-rules.kdl"
+  cat <<'WINDOWRULES_KDL' >"$niri_dir/custom/window-rules.kdl"
 // =============================================================================
 // Window rules — translated from Hyprland windowrules. Managed by setup-cachyos.sh.
 //
@@ -591,13 +591,21 @@ window-rule {
 }
 WINDOWRULES_KDL
 
-  cat << 'BINDS_KDL' > "$niri_dir/custom/binds.kdl"
+  cat <<'BINDS_KDL' >"$niri_dir/custom/binds.kdl"
 // =============================================================================
 // Custom keybinds — multi-monitor / projector. Managed by setup-cachyos.sh.
 // niri merges this binds{} block with the others; later definitions win, so the
 // projector binds below override the defaults on the same keys.
 // =============================================================================
 binds {
+    Mod+T hotkey-overlay-title="Open a Terminal: Kitty" { spawn "kitty"; }
+    Super+B hotkey-overlay-title="Open a browser: Zen" { spawn "flatpak" "run" "app.zen_browser.zen"; }
+    Super+E hotkey-overlay-title="Open file browser: Nautilus" { spawn "nautilus"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02-"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+ -l 1.0"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+2%"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "2%-"; }
+
     // Teleport the current workspace to the external projector, and back.
     Mod+Shift+P hotkey-overlay-title="Send workspace to projector (HDMI-A-1)" { move-workspace-to-monitor "HDMI-A-1"; }
     Mod+Shift+O hotkey-overlay-title="Send workspace to laptop (eDP-1)" { move-workspace-to-monitor "eDP-1"; }
@@ -618,13 +626,13 @@ BINDS_KDL
       cp /usr/share/doc/niri/default-config.kdl "$niri_dir/config.kdl"
       info "Bootstrapped config.kdl from niri default"
     else
-      : > "$niri_dir/config.kdl"
+      : >"$niri_dir/config.kdl"
     fi
   fi
 
   # Include the custom modules (last, so they win) -- idempotent.
   if ! grep -q 'custom/appearance.kdl' "$niri_dir/config.kdl"; then
-    cat << 'NIRI_INCLUDES' >> "$niri_dir/config.kdl"
+    cat <<'NIRI_INCLUDES' >>"$niri_dir/config.kdl"
 
 // --- Custom modules (managed by setup-cachyos.sh) -- included last so they win ---
 include "custom/appearance.kdl"
@@ -640,7 +648,6 @@ NIRI_INCLUDES
     warn "niri config written but validation reported issues -- check $niri_dir/config.kdl"
   fi
 }
-
 
 # --------------------------------------------------------------------------
 # 9. nano + vim
@@ -1327,60 +1334,60 @@ secure_boot() {
 #   * enables gcr-ssh-agent so the keyring also acts as the SSH agent, caching key
 #     passphrases. SSH_AUTH_SOCK is set in environment.d (GUI apps) and .zshenv (shells).
 setup_gnome_keyring() {
-    step "Configuring gnome-keyring (PAM auto-unlock + SSH agent)"
+  step "Configuring gnome-keyring (PAM auto-unlock + SSH agent)"
 
-    # 1. PAM — unlock the keyring with the SDDM login password. Insert each module
-    #    right after the matching 'include system-login' line (recommended placement).
-    #    Idempotent: skip entirely if pam_gnome_keyring is already wired in.
-    if grep -q 'pam_gnome_keyring' /etc/pam.d/sddm; then
-        info "pam_gnome_keyring already present in /etc/pam.d/sddm, skipping"
-    else
-        sudo sed -i \
-            -e '/^auth[[:space:]]\+include[[:space:]]\+system-login/a -auth       optional    pam_gnome_keyring.so' \
-            -e '/^password[[:space:]]\+include[[:space:]]\+system-login/a -password   optional    pam_gnome_keyring.so    use_authtok' \
-            -e '/^session[[:space:]]\+include[[:space:]]\+system-login/a -session    optional    pam_gnome_keyring.so    auto_start' \
-            /etc/pam.d/sddm
-        grep -q 'pam_gnome_keyring' /etc/pam.d/sddm \
-            && ok "pam_gnome_keyring wired into /etc/pam.d/sddm" \
-            || warn "Could not insert pam_gnome_keyring lines — edit /etc/pam.d/sddm manually"
-    fi
+  # 1. PAM — unlock the keyring with the SDDM login password. Insert each module
+  #    right after the matching 'include system-login' line (recommended placement).
+  #    Idempotent: skip entirely if pam_gnome_keyring is already wired in.
+  if grep -q 'pam_gnome_keyring' /etc/pam.d/sddm; then
+    info "pam_gnome_keyring already present in /etc/pam.d/sddm, skipping"
+  else
+    sudo sed -i \
+      -e '/^auth[[:space:]]\+include[[:space:]]\+system-login/a -auth       optional    pam_gnome_keyring.so' \
+      -e '/^password[[:space:]]\+include[[:space:]]\+system-login/a -password   optional    pam_gnome_keyring.so    use_authtok' \
+      -e '/^session[[:space:]]\+include[[:space:]]\+system-login/a -session    optional    pam_gnome_keyring.so    auto_start' \
+      /etc/pam.d/sddm
+    grep -q 'pam_gnome_keyring' /etc/pam.d/sddm &&
+      ok "pam_gnome_keyring wired into /etc/pam.d/sddm" ||
+      warn "Could not insert pam_gnome_keyring lines — edit /etc/pam.d/sddm manually"
+  fi
 
-    # 1a. Keep the keyring password in sync with your user password. use_authtok reuses
-    #     the new password pam_unix just set during `passwd`, re-encrypting the login
-    #     keyring so it stays auto-unlockable afterwards. Idempotent.
-    if grep -q 'pam_gnome_keyring' /etc/pam.d/passwd; then
-        info "pam_gnome_keyring already present in /etc/pam.d/passwd, skipping"
-    else
-        sudo sed -i '/^password[[:space:]]\+include[[:space:]]\+system-auth/a password    optional    pam_gnome_keyring.so    use_authtok' /etc/pam.d/passwd
-        grep -q 'pam_gnome_keyring' /etc/pam.d/passwd \
-            && ok "pam_gnome_keyring wired into /etc/pam.d/passwd (keyring follows passwd changes)" \
-            || warn "Could not insert pam_gnome_keyring into /etc/pam.d/passwd"
-    fi
+  # 1a. Keep the keyring password in sync with your user password. use_authtok reuses
+  #     the new password pam_unix just set during `passwd`, re-encrypting the login
+  #     keyring so it stays auto-unlockable afterwards. Idempotent.
+  if grep -q 'pam_gnome_keyring' /etc/pam.d/passwd; then
+    info "pam_gnome_keyring already present in /etc/pam.d/passwd, skipping"
+  else
+    sudo sed -i '/^password[[:space:]]\+include[[:space:]]\+system-auth/a password    optional    pam_gnome_keyring.so    use_authtok' /etc/pam.d/passwd
+    grep -q 'pam_gnome_keyring' /etc/pam.d/passwd &&
+      ok "pam_gnome_keyring wired into /etc/pam.d/passwd (keyring follows passwd changes)" ||
+      warn "Could not insert pam_gnome_keyring into /etc/pam.d/passwd"
+  fi
 
-    # 1b. Let PAM's keyring daemon own the Secret Service. gnome-keyring-daemon.socket
-    #     is enabled by a global preset and socket-activates a *passwordless* daemon at
-    #     sockets.target — it grabs org.freedesktop.secrets before pam_gnome_keyring's
-    #     auto_start daemon can, so the login keyring never gets unlocked on the bus and
-    #     apps like VS Code fail with "OS keyring not available" (writes hang on a prompt
-    #     that can't display under a minimal Wayland WM). Mask it in user scope so the
-    #     PAM-started, password-holding daemon is authoritative. Reversible with:
-    #     systemctl --user unmask gnome-keyring-daemon.socket
-    systemctl --user mask gnome-keyring-daemon.socket \
-        || warn "Could not mask gnome-keyring-daemon.socket"
+  # 1b. Let PAM's keyring daemon own the Secret Service. gnome-keyring-daemon.socket
+  #     is enabled by a global preset and socket-activates a *passwordless* daemon at
+  #     sockets.target — it grabs org.freedesktop.secrets before pam_gnome_keyring's
+  #     auto_start daemon can, so the login keyring never gets unlocked on the bus and
+  #     apps like VS Code fail with "OS keyring not available" (writes hang on a prompt
+  #     that can't display under a minimal Wayland WM). Mask it in user scope so the
+  #     PAM-started, password-holding daemon is authoritative. Reversible with:
+  #     systemctl --user unmask gnome-keyring-daemon.socket
+  systemctl --user mask gnome-keyring-daemon.socket ||
+    warn "Could not mask gnome-keyring-daemon.socket"
 
-    # 2. SSH agent — gcr-ssh-agent (from gcr-4) replaces gnome-keyring's removed ssh
-    #    component. Enabling the socket socket-activates the service and creates the
-    #    agent socket at $XDG_RUNTIME_DIR/gcr/ssh on login.
-    systemctl --user enable gcr-ssh-agent.socket \
-        || warn "Could not enable gcr-ssh-agent.socket (start your graphical session first)"
+  # 2. SSH agent — gcr-ssh-agent (from gcr-4) replaces gnome-keyring's removed ssh
+  #    component. Enabling the socket socket-activates the service and creates the
+  #    agent socket at $XDG_RUNTIME_DIR/gcr/ssh on login.
+  systemctl --user enable gcr-ssh-agent.socket ||
+    warn "Could not enable gcr-ssh-agent.socket (start your graphical session first)"
 
-    # Point GUI apps (systemd user session) at the agent. Shells are handled in .zshenv.
-    mkdir -p "$HOME/.config/environment.d"
-    cat << 'EOF' > "$HOME/.config/environment.d/gcr-ssh-agent.conf"
+  # Point GUI apps (systemd user session) at the agent. Shells are handled in .zshenv.
+  mkdir -p "$HOME/.config/environment.d"
+  cat <<'EOF' >"$HOME/.config/environment.d/gcr-ssh-agent.conf"
 # Route SSH through gnome-keyring's gcr-ssh-agent (socket from gcr-ssh-agent.socket)
 SSH_AUTH_SOCK=${XDG_RUNTIME_DIR}/gcr/ssh
 EOF
-    ok "gnome-keyring SSH agent enabled (SSH_AUTH_SOCK → \$XDG_RUNTIME_DIR/gcr/ssh)"
+  ok "gnome-keyring SSH agent enabled (SSH_AUTH_SOCK → \$XDG_RUNTIME_DIR/gcr/ssh)"
 }
 
 # --------------------------------------------------------------------------
