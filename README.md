@@ -11,7 +11,7 @@ Welcome to **Linux Customizations**! This repository contains a collection of sc
 ## Folder Structure
 
 - `CachyOS/`: Scripts handling the setup and customization of CachyOS.
-- `fedora_customization/`: Deployment scripts for Fedora, including Hyprland and aesthetic setups.
+- `Fedora 43/`: Deployment scripts for Fedora, including Hyprland and aesthetic setups.
 - `backup_script.sh`: A tool for backing up critical system data.
 
 ## License
